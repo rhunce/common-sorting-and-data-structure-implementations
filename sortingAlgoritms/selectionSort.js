@@ -14,7 +14,6 @@ function getIdxOfMinNumber(numbers, startIdx) {
     let currentMinNumIdx = startIdx
     for (let i = startIdx + 1; i < numbers.length; i++) {
         if (numbers[i] < numbers[currentMinNumIdx]) {
-            currentMinNum = numbers[i]
             currentMinNumIdx = i
         }
     }
