@@ -11,10 +11,9 @@ function selectionSort(numbers) {
 
 // HELPERS
 function getIdxOfMinNumber(numbers, startIdx) {
-    let currentMinNum = Number.POSITIVE_INFINITY
-    let currentMinNumIdx = -1
-    for (let i = startIdx; i < numbers.length; i++) {
-        if (numbers[i] < currentMinNum) {
+    let currentMinNumIdx = startIdx
+    for (let i = startIdx + 1; i < numbers.length; i++) {
+        if (numbers[i] < numbers[currentMinNumIdx]) {
             currentMinNum = numbers[i]
             currentMinNumIdx = i
         }
