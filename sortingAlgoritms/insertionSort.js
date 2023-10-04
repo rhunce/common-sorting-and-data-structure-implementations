@@ -25,12 +25,12 @@ function insertValInCorrectPositionToLeft(numbers, currentEndIdx) {
 function insertionSort(numbers) {
     for (let i = 1; i < numbers.length; i++) {
         const currentValue = numbers[i]
-        let currentIdx = i - 1
-        while (currentIdx >= 0 && numbers[currentIdx] > currentValue) {
-            numbers[currentIdx + 1] = numbers[currentIdx]
+        let currentIdx = i
+        while (currentIdx > 0 && numbers[currentIdx - 1] > currentValue) {
+            numbers[currentIdx] = numbers[currentIdx - 1]
             currentIdx--
         }
-        numbers[currentIdx + 1] = currentValue
+        numbers[currentIdx] = currentValue
     }
 
     return numbers
