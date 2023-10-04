@@ -19,6 +19,24 @@ function insertValInCorrectPositionToLeft(numbers, currentEndIdx) {
     }
 }
 
+// Solution with constraint
+// Constraint: Don't use .splice() or any other native JavaScript methods
+// O(n^2) time | O(1) space
+function insertionSort(numbers) {
+    for (let i = 1; i < numbers.length; i++) {
+        const currentValue = numbers[i]
+        let currentIdx = i - 1
+        while (currentIdx >= 0 && numbers[currentIdx] > currentValue) {
+            numbers[currentIdx + 1] = numbers[currentIdx]
+            currentIdx--
+        }
+        numbers[currentIdx + 1] = currentValue
+    }
+
+    return numbers
+}
+
+
 // TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
 console.log(insertionSort([]))
 console.log(insertionSort([-1.8]))
