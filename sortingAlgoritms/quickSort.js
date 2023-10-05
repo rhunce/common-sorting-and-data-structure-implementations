@@ -1,16 +1,17 @@
-function quickSort(numbers, start = 0, end = numbers.length - 1) {
+// O(n log n) time (average, best) | O (log n) space
+// O(n^2) time (worst case) | O (log n) space
+function quickSortLomuto(numbers, start = 0, end = numbers.length - 1) {
     if (numbers.length < 2) return numbers
     if (start >= end) return
 
     const partitionIndex = lomutoPartition(numbers, start, end)
 
-    quickSort(numbers, start, partitionIndex - 1)
-    quickSort(numbers, partitionIndex + 1, end)
+    quickSortLomuto(numbers, start, partitionIndex - 1)
+    quickSortLomuto(numbers, partitionIndex + 1, end)
 
     return numbers
 }
 
-// HELPERS
 // Takes element at pivotIdx (last index), and effectively puts it in middle 
 // of numbers array with all smaller or equal numbers to the left of it and all
 // larger numbers to the right of it.
@@ -29,6 +30,54 @@ function lomutoPartition(numbers, start, end) {
     return pivotIndex
 }
 
+// TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
+console.log(quickSortLomuto([]))
+console.log(quickSortLomuto([-1.8]))
+console.log(quickSortLomuto([2]))
+console.log(quickSortLomuto([2, 1]))
+console.log(quickSortLomuto([1, 5, 2]))
+console.log(quickSortLomuto([-1, -2, -5]))
+console.log(quickSortLomuto([3, 3, 3, 3, 3]))
+console.log(quickSortLomuto([5, 4, 3, 2, 1]))
+console.log(quickSortLomuto([-1, -2, -3, -4, -5]))
+console.log(quickSortLomuto([5, 1, 2, 3, 4]))
+console.log(quickSortLomuto([500, 400, 300, 200, 100]))
+console.log(quickSortLomuto([-7, -2, 0, 1, 2, 3, 4, 5]))
+console.log(quickSortLomuto([-1.8, 4, 2.55, 0, 5, 1, -2, 3]))
+
+// O(n log n) time (average, best) | O (log n) space
+// O(n^2) time (worst case) | O (log n) space
+function quickSortHoare(numbers, start = 0, end = numbers.length - 1) {
+    if (numbers.length < 2) return numbers
+    if (start < end) {
+        const partitionIndex = hoarePartition(numbers, start, end)
+        quickSortHoare(numbers, start, partitionIndex - 1)
+        quickSortHoare(numbers, partitionIndex, end)
+    
+        return numbers
+    }
+
+}
+
+// Note: Hoare partition scheme
+function hoarePartition(numbers, start, end) {
+    const pivotValue = numbers[Math.floor((start + end) / 2)]
+    while (start <= end) {
+        while(numbers[start] < pivotValue) {
+            start++
+        }
+        while(numbers[end] > pivotValue) {
+            end--
+        }
+        if (start <= end) {
+            swap(numbers, start, end)
+            start++
+            end--
+        }
+    }
+    return start
+}
+
 function swap(numbers, idxOne, idxTwo) {
     const temp = numbers[idxOne]
     numbers[idxOne] = numbers[idxTwo]
@@ -36,13 +85,16 @@ function swap(numbers, idxOne, idxTwo) {
 }
 
 // TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
-console.log(quickSort([]))
-console.log(quickSort([-1.8]))
-console.log(quickSort([2]))
-console.log(quickSort([2, 1]))
-console.log(quickSort([1, 5, 2]))
-console.log(quickSort([-1, -2, -5]))
-console.log(quickSort([5, 1, 2, 3, 4]))
-console.log(quickSort([500, 400, 300, 200, 100]))
-console.log(quickSort([-7, -2, 0, 1, 2, 3, 4, 5]))
-console.log(quickSort([-1.8, 4, 2.55, 0, 5, 1, -2, 3]))
+console.log(quickSortHoare([]))
+console.log(quickSortHoare([-1.8]))
+console.log(quickSortHoare([2]))
+console.log(quickSortHoare([2, 1]))
+console.log(quickSortHoare([1, 5, 2]))
+console.log(quickSortHoare([-1, -2, -5]))
+console.log(quickSortHoare([3, 3, 3, 3, 3]))
+console.log(quickSortHoare([5, 4, 3, 2, 1]))
+console.log(quickSortHoare([-1, -2, -3, -4, -5]))
+console.log(quickSortHoare([5, 1, 2, 3, 4]))
+console.log(quickSortHoare([500, 400, 300, 200, 100]))
+console.log(quickSortHoare([-7, -2, 0, 1, 2, 3, 4, 5]))
+console.log(quickSortHoare([-1.8, 4, 2.55, 0, 5, 1, -2, 3]))
