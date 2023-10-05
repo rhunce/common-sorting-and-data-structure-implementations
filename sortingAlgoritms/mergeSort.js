@@ -1,6 +1,18 @@
 // O() time | O() space
-function mergeSort(numbers) {
-    // ...
+
+// numbers = [38, 27, 43, 10]
+function mergeSort(numbers, startIdx = 0, endIdx = numbers.length - 1) {
+    if (numbers.length < 2) return
+    const halfIdx = Math.floor(numbers.length / 2)
+    const leftHalf = numbers.slice(startIdx, halfIdx)
+    const rightHalf = numbers.slice(halfIdx, endIdx + 1)
+
+    mergeSort(leftHalf)
+    mergeSort(rightHalf)
+
+    // ... merging process ... here?
+
+    return numbers
 }
 
 // TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
