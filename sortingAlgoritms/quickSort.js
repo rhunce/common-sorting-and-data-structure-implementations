@@ -78,12 +78,6 @@ function hoarePartition(numbers, start, end) {
     return start
 }
 
-function swap(numbers, idxOne, idxTwo) {
-    const temp = numbers[idxOne]
-    numbers[idxOne] = numbers[idxTwo]
-    numbers[idxTwo] = temp
-}
-
 // TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
 console.log(quickSortHoare([]))
 console.log(quickSortHoare([-1.8]))
@@ -98,3 +92,9 @@ console.log(quickSortHoare([5, 1, 2, 3, 4]))
 console.log(quickSortHoare([500, 400, 300, 200, 100]))
 console.log(quickSortHoare([-7, -2, 0, 1, 2, 3, 4, 5]))
 console.log(quickSortHoare([-1.8, 4, 2.55, 0, 5, 1, -2, 3]))
+
+function swap(numbers, idxOne, idxTwo) {
+    const temp = numbers[idxOne]
+    numbers[idxOne] = numbers[idxTwo]
+    numbers[idxTwo] = temp
+}
