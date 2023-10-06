@@ -1,7 +1,7 @@
 # Common Sorting And Data Structure Implementations
 
 ## About
-This project implements common sorting algorithms, data structures, and search algorithms in Javascript. Feel free to look through the files or to fork.
+This project implements common sorting algorithms, data structures, and search algorithms in Javascript. The implementations include test cases and the time and space complexity of the various algorithms and data structure methods. Feel free to look through the files or to fork.
 
 ### Core Sorting Algorithms
 - [x] Bubble sort
