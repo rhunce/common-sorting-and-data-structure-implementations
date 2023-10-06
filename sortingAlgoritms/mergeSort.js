@@ -25,17 +25,7 @@ function mergeSort(numbers) {
         }
     }
 
-    while (left < sortedLeftHalf.length) {
-        sortedArray.push(sortedLeftHalf[left])
-        left++
-    }
-
-    while (right < sortedRightHalf.length) {
-        sortedArray.push(sortedRightHalf[right])
-        right++
-    }
-
-    return sortedArray
+    return [...sortedArray, ...sortedLeftHalf.slice(left), ...sortedRightHalf.slice(right)]
 }
 
 // ALTERNATIVE SOLUTION
