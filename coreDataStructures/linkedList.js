@@ -46,12 +46,12 @@ class LinkedList {
 
     // O(n) time | O(1) space, where n is number of nodes in linked list
     insertAtTail(value) {
-        this.insertNodeAtPosition(value, this._getLength())
+        this.insertNodeAtPosition(value, this.getLength())
     }
 
     // O(n) time | O(1) space, where n is number of nodes in linked list
     insertNodeAtPosition(value, position) {
-        const lastPosition = this._getLength()
+        const lastPosition = this.getLength()
         if (position < 1 || position > lastPosition) return null
 
         const nodeToInsert = new Node(value)
@@ -87,8 +87,14 @@ class LinkedList {
         return this.head
     }
 
+    
     // O(n) time | O(1) space, where n is number of nodes in linked list
-    _getLength() {
+    getTail() {
+        return  this.getNodeAtPosition(this.getLength())
+    }
+
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    getLength() {
         let currentPosition = 1
         let currentNode = this.head
 
@@ -101,17 +107,6 @@ class LinkedList {
     }
 
     // O(n) time | O(1) space, where n is number of nodes in linked list
-    getTail() {
-        let currentNode = this.head
-
-        while (currentNode.next) {
-            currentNode = currentNode.next
-        }
-
-        return currentNode
-    }
-
-    // O(n) time | O(1) space, where n is number of nodes in linked list
     isInList(value) {
         let currentNode = this.head
         while (currentNode) {
@@ -121,8 +116,20 @@ class LinkedList {
         return false
     }
 
-    // getNodeAtPosition(position)
-        // return node
+    getNodeAtPosition(position) {
+        const lastPosition = this.getLength()
+        if (position < 1 || position > lastPosition) return null
+        let currentPosition = 1
+        let currentNode = this.head
+        while (true) {
+            if (currentPosition === position) {
+                break
+            }
+            currentNode = currentNode.next
+            currentPosition++
+        }
+        return currentNode
+    }
 
     // updateHead(value)
         // return updated node
@@ -144,12 +151,12 @@ class LinkedList {
 }
 
 // TEST CASES
-// TESTS FOR constructLinkedList
+console.log("========== TESTS FOR constructLinkedList ==========")
 console.log("Should return []: ", new LinkedList().getLinkedListValues())
 console.log("Should return []: ", new LinkedList([]).getLinkedListValues())
 console.log("Should return [1, 2, 3, 4, 5]: ", new LinkedList([1,2,3,4,5]).getLinkedListValues())
 console.log("Should return [-10, 'cat', false, [1, 2], { key: 'val' }, 2.55]: ", new LinkedList([-10, "cat", false, [1, 2], { key: "val" }, 2.55]).getLinkedListValues())
-// TESTS FOR insertNodeAtPosition
+console.log("========== TESTS FOR insertNodeAtPosition ==========")
 const linkedList1 = new LinkedList([1,2,3,4,5])
 linkedList1.insertNodeAtPosition(10, 3)
 console.log("Should return [1, 2, 10, 3, 4, 5]: ", linkedList1.getLinkedListValues())
@@ -159,7 +166,7 @@ linkedList1.insertNodeAtPosition(20, 1)
 console.log("Should return [20, 1, 2, 10, 3, 4, 5]: ", linkedList1.getLinkedListValues())
 linkedList1.insertNodeAtPosition(30, 7)
 console.log("Should return [20, 1, 2, 10, 3, 4, 5, 30]: ", linkedList1.getLinkedListValues())
-// TESTS FOR insertAtHead
+console.log("========== TESTS FOR insertAtHead ==========")
 const linkedList2 = new LinkedList([1,2,3,4,5])
 linkedList2.insertAtHead(10)
 console.log("Should return [10, 1, 2, 3, 4, 5]: ", linkedList2.getLinkedListValues())
@@ -168,17 +175,27 @@ console.log("Should return [20, 10, 1, 2, 3, 4, 5]: ", linkedList2.getLinkedList
 linkedList2.insertAtHead(30)
 console.log("Should return [30, 20, 10, 1, 2, 3, 4, 5]: ", linkedList2.getLinkedListValues())
 // TESTS FOR insertAtTail
+console.log("========== TESTS FOR insertAtTail ==========")
 linkedList2.insertAtTail(100)
-console.log("Should return [10, 1, 2, 3, 4, 5, 100]: ", linkedList2.getLinkedListValues())
+console.log("Should return [30, 20, 10, 1, 2, 3, 4, 5, 100]: ", linkedList2.getLinkedListValues())
 linkedList2.insertAtTail(200)
-console.log("Should return [20, 10, 1, 2, 3, 4, 5, 100, 200]: ", linkedList2.getLinkedListValues())
+console.log("Should return [30, 20, 10, 1, 2, 3, 4, 5, 100, 200]: ", linkedList2.getLinkedListValues())
 linkedList2.insertAtTail(300)
 console.log("Should return [30, 20, 10, 1, 2, 3, 4, 5, 100, 200, 300]: ", linkedList2.getLinkedListValues())
-// TESTS FOR isInList
+console.log("========== TESTS FOR isInList ==========")
 const linkedList3 = new LinkedList([1,2,3])
 console.log("Should return true: ", linkedList3.isInList(1))
 console.log("Should return false: ", linkedList3.isInList(4))
-// TESTS FOR getTail
+console.log("========== TESTS FOR getTail ==========")
 console.log("Should return { value: 30, next: null }: ", linkedList1.getTail())
 console.log("Should return { value: 300, next: null }: ", linkedList2.getTail())
 console.log("Should return { value: 3, next: null }: ", linkedList3.getTail())
+console.log("========== TESTS FOR getNodeAtPosition ==========")
+const linkedList4 = new LinkedList([1,2,3,4,5])
+console.log("Should return null: ", linkedList4.getNodeAtPosition(0))
+console.log("Should return { value: 1, next: Node... }: ", linkedList4.getNodeAtPosition(1))
+console.log("Should return { value: 2, next: Node... }: ", linkedList4.getNodeAtPosition(2))
+console.log("Should return { value: 3, next: Node... }: ", linkedList4.getNodeAtPosition(3))
+console.log("Should return { value: 4, next: Node... }: ", linkedList4.getNodeAtPosition(4))
+console.log("Should return { value: 5, next: null }: ", linkedList4.getNodeAtPosition(5))
+console.log("Should return null: ", linkedList4.getNodeAtPosition(6))
