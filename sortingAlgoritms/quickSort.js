@@ -1,3 +1,4 @@
+// NOTE: This is a non-stable sorting algorithm, meaning the order of elements having the same value is not maintained.
 // O(n log n) time (average, best) | O (log n) space
 // O(n^2) time (worst case) | O (log n) space
 function quickSortLomuto(numbers, start = 0, end = numbers.length - 1) {
