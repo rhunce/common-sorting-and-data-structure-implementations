@@ -1,19 +1,35 @@
 # Common Sorting And Data Structure Implementations
 
 ## About
-This project implements common sorting algorithms and data structures in Javascript. Feel free to look through the files or to fork.
+This project implements common sorting algorithms, data structures, and search algorithms in Javascript. Feel free to look through the files or to fork.
 
-### Sorting Algorithms
-- Bubble sort
-- Selection sort
-- Insertion sort
-- Quick sort
-- Merge sort
-- Bucket sort
-- Shell sort
-- Heap sort
+### Core Sorting Algorithms
+- [x] Bubble sort
+- [x] Selection sort
+- [x] Insertion sort
+- [x] Quick sort
+- [x] Merge sort
 
-### Data Structures
+### Other Advanced Sorting Algorithms
+- [ ] Bucket sort
+- [ ] Shell sort
+- [ ] Heap sort
+- [ ] Counting Sort
+- [ ] Radix Sort
+
+### Core Data Structures
+- [ ] Linked List
+- [ ] Hash Table
+- [ ] Stack
+- [ ] Queue
+- [ ] Tree
+- [ ] Binary Tree
+- [ ] Binary Search Tree
+- [ ] Min Heap
+- [ ] Max Heap
+- [ ] Graph
+
+### Other Advanced Data Structures
 - TBD
 
 ## License
