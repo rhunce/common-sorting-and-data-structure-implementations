@@ -111,7 +111,15 @@ class LinkedList {
         return currentNode
     }
 
-    // isInList(value)
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    isInList(value) {
+        let currentNode = this.head
+        while (currentNode) {
+            if (currentNode.value === value) return true
+            currentNode = currentNode.next
+        }
+        return false
+    }
         // return [true/false, position/null]
 
     // getHead()
@@ -173,3 +181,7 @@ linkedList2.insertAtTail(200)
 console.log("Should return [20, 10, 1, 2, 3, 4, 5, 100, 200]: ", linkedList2.getLinkedListValues())
 linkedList2.insertAtTail(300)
 console.log("Should return [30, 20, 10, 1, 2, 3, 4, 5, 100, 200, 300]: ", linkedList2.getLinkedListValues())
+// TESTS FOR isInList
+const linkedList3 = new LinkedList([1,2,3])
+console.log("Should return true: ", linkedList3.isInList(1))
+console.log("Should return false: ", linkedList3.isInList(4))
