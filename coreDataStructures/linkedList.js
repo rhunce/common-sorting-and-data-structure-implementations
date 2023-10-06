@@ -63,7 +63,7 @@ class LinkedList {
         }
 
         if (position === lastPosition) {
-            const lastNode = this._getLastNode()
+            const lastNode = this.getTail()
             lastNode.next = nodeToInsert
             return this.head
         }
@@ -101,7 +101,7 @@ class LinkedList {
     }
 
     // O(n) time | O(1) space, where n is number of nodes in linked list
-    _getLastNode() {
+    getTail() {
         let currentNode = this.head
 
         while (currentNode.next) {
@@ -120,13 +120,6 @@ class LinkedList {
         }
         return false
     }
-        // return [true/false, position/null]
-
-    // getHead()
-        // return node
-
-    // getTail()
-        // return node
 
     // getNodeAtPosition(position)
         // return node
@@ -185,3 +178,7 @@ console.log("Should return [30, 20, 10, 1, 2, 3, 4, 5, 100, 200, 300]: ", linked
 const linkedList3 = new LinkedList([1,2,3])
 console.log("Should return true: ", linkedList3.isInList(1))
 console.log("Should return false: ", linkedList3.isInList(4))
+// TESTS FOR getTail
+console.log("Should return { value: 30, next: null }: ", linkedList1.getTail())
+console.log("Should return { value: 300, next: null }: ", linkedList2.getTail())
+console.log("Should return { value: 3, next: null }: ", linkedList3.getTail())
