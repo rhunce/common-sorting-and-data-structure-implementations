@@ -1,18 +1,66 @@
-// O() time | O() space
-
-// numbers = [38, 27, 43, 10]
-function mergeSort(numbers, startIdx = 0, endIdx = numbers.length - 1) {
-    if (numbers.length < 2) return
+// NOTE: This is a stable sorting algorithm, meaning the order of elements having the same value is maintained.
+// O(n log n) time | O(log n) space
+function mergeSort(numbers) {
+    // DIVIDE
+    if (numbers.length < 2) return numbers
     const halfIdx = Math.floor(numbers.length / 2)
-    const leftHalf = numbers.slice(startIdx, halfIdx)
-    const rightHalf = numbers.slice(halfIdx, endIdx + 1)
+    const leftHalf = numbers.slice(0, halfIdx)
+    const rightHalf = numbers.slice(halfIdx)
 
-    mergeSort(leftHalf)
-    mergeSort(rightHalf)
+    const sortedLeftHalf = mergeSort(leftHalf)
+    const sortedRightHalf = mergeSort(rightHalf)
 
-    // ... merging process ... here?
+    // MERGE
+    const sortedArray = []
+    let left = 0
+    let right = 0
 
-    return numbers
+    while (left < sortedLeftHalf.length && right < sortedRightHalf.length) {
+        if (sortedLeftHalf[left] <= sortedRightHalf[right]) {
+            sortedArray.push(sortedLeftHalf[left])
+            left++
+        } else {
+            sortedArray.push(sortedRightHalf[right])
+            right++
+        }
+    }
+
+    while (left < sortedLeftHalf.length) {
+        sortedArray.push(sortedLeftHalf[left])
+        left++
+    }
+
+    while (right < sortedRightHalf.length) {
+        sortedArray.push(sortedRightHalf[right])
+        right++
+    }
+
+    return sortedArray
+}
+
+// ALTERNATIVE SOLUTION
+// O(n log n) time ... O(n^2) time for shift method? | O(n) space
+function mergeSort(numbers) {
+    if (numbers.length < 2) return numbers
+    const halfIdx = Math.floor(numbers.length / 2)
+    const leftHalf = numbers.slice(0, halfIdx)
+    const rightHalf = numbers.slice(halfIdx)
+
+    return merge(mergeSort(leftHalf), mergeSort(rightHalf))
+}
+
+function merge(leftArr, rightArr) {
+    const sortedArray = []
+
+    while (leftArr.length && rightArr.length) {
+        if (leftArr[0] <= rightArr[0]) {
+            sortedArray.push(leftArr.shift())
+        } else {
+            sortedArray.push(rightArr.shift())
+        }
+    }
+
+    return [...sortedArray, ...leftArr, ...rightArr]
 }
 
 // TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
