@@ -116,6 +116,7 @@ class LinkedList {
         return false
     }
 
+    // O(n) time | O(1) space, where n is number of nodes in linked list
     getNodeAtPosition(position) {
         const lastPosition = this.getLength()
         if (position < 1 || position > lastPosition) return null
@@ -131,19 +132,25 @@ class LinkedList {
         return currentNode
     }
 
+    // O(1) time | O(1) space
     updateHead(value) {
         this.head.value = value
         return this.head
     }
 
+    // O(n) time | O(1) space, where n is number of nodes in linked list
     updateTail(value) {
         const tail = this.getTail()
         tail.value = value
         return tail
     }
 
-    // updateNodeAtPosition(value, position)
-        // return true if updated, or false if position is out of range
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    updateNodeAtPosition(value, position) {
+        const node = this.getNodeAtPosition(position)
+        if (node) node.value = value
+        return node
+    }
 
     // deleteHead()
         // return deleted node
@@ -212,3 +219,15 @@ console.log("========== TESTS FOR updateTail ==========")
 console.log("Should return { value: 999, next: null }: ", linkedList1.updateTail(999))
 console.log("Should return { value: 999, next: null }: ", linkedList2.updateTail(999))
 console.log("Should return { value: 999, next: null }: ", linkedList3.updateTail(999))
+console.log("========== TESTS FOR updateNodeAtPosition ==========")
+const linkedList5 = new LinkedList([1,2,3,4,5])
+console.log("Should return null:", linkedList5.updateNodeAtPosition(111, -1))
+console.log("Should return null:", linkedList5.updateNodeAtPosition(111, 0))
+console.log("Should return { value: 111, next: Node(2) }:", linkedList5.updateNodeAtPosition(111, 1))
+console.log("Should return { value: 222, next: Node(3) }:", linkedList5.updateNodeAtPosition(222, 2))
+console.log("Should return { value: 333, next: Node(4) }:", linkedList5.updateNodeAtPosition(333, 3))
+console.log("Should return { value: 444, next: Node(5) }:", linkedList5.updateNodeAtPosition(444, 4))
+console.log("Should return { value: 555, next: null }:", linkedList5.updateNodeAtPosition(555, 5))
+console.log("Should return null:", linkedList5.updateNodeAtPosition(666, 6))
+console.log("Should return null:", linkedList5.updateNodeAtPosition(777, 7))
+console.log("Should return [111,222,333,444,555]:", linkedList5.getLinkedListValues())
