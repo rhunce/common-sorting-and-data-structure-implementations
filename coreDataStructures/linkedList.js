@@ -136,8 +136,11 @@ class LinkedList {
         return this.head
     }
 
-    // updateTail(value)
-        // return updated node
+    updateTail(value) {
+        const tail = this.getTail()
+        tail.value = value
+        return tail
+    }
 
     // updateNodeAtPosition(value, position)
         // return true if updated, or false if position is out of range
@@ -205,3 +208,7 @@ console.log("========== TESTS FOR updateHead ==========")
 console.log("Should return { value: 777, next: Node... }: ", linkedList1.updateHead(777))
 console.log("Should return { value: 777, next: Node... }: ", linkedList2.updateHead(777))
 console.log("Should return { value: 777, next: Node... }: ", linkedList3.updateHead(777))
+console.log("========== TESTS FOR updateTail ==========")
+console.log("Should return { value: 999, next: null }: ", linkedList1.updateTail(999))
+console.log("Should return { value: 999, next: null }: ", linkedList2.updateTail(999))
+console.log("Should return { value: 999, next: null }: ", linkedList3.updateTail(999))
