@@ -131,8 +131,10 @@ class LinkedList {
         return currentNode
     }
 
-    // updateHead(value)
-        // return updated node
+    updateHead(value) {
+        this.head.value = value
+        return this.head
+    }
 
     // updateTail(value)
         // return updated node
@@ -199,3 +201,7 @@ console.log("Should return { value: 3, next: Node... }: ", linkedList4.getNodeAt
 console.log("Should return { value: 4, next: Node... }: ", linkedList4.getNodeAtPosition(4))
 console.log("Should return { value: 5, next: null }: ", linkedList4.getNodeAtPosition(5))
 console.log("Should return null: ", linkedList4.getNodeAtPosition(6))
+console.log("========== TESTS FOR updateHead ==========")
+console.log("Should return { value: 777, next: Node... }: ", linkedList1.updateHead(777))
+console.log("Should return { value: 777, next: Node... }: ", linkedList2.updateHead(777))
+console.log("Should return { value: 777, next: Node... }: ", linkedList3.updateHead(777))
