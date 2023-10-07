@@ -152,7 +152,15 @@ class LinkedList {
         return node
     }
 
-    // deleteHead()
+    // O(1) time | O(1) space
+    deleteHead() {
+        const rootNode = this.head
+        if (rootNode) {
+            this.head = rootNode.next
+            rootNode.next = null
+        }
+        return this.head
+    }
         // return deleted node
 
     // deleteTail()
@@ -231,3 +239,17 @@ console.log("Should return { value: 555, next: null }:", linkedList5.updateNodeA
 console.log("Should return null:", linkedList5.updateNodeAtPosition(666, 6))
 console.log("Should return null:", linkedList5.updateNodeAtPosition(777, 7))
 console.log("Should return [111,222,333,444,555]:", linkedList5.getLinkedListValues())
+console.log("========== TESTS FOR deleteHead ==========")
+const linkedList6 = new LinkedList([1,2,3,4,5])
+linkedList6.deleteHead()
+console.log("Should return [2,3,4,5]", linkedList6.getLinkedListValues())
+linkedList6.deleteHead()
+console.log("Should return [3,4,5]", linkedList6.getLinkedListValues())
+linkedList6.deleteHead()
+console.log("Should return [4,5]", linkedList6.getLinkedListValues())
+linkedList6.deleteHead()
+console.log("Should return [5]", linkedList6.getLinkedListValues())
+linkedList6.deleteHead()
+console.log("Should return []", linkedList6.getLinkedListValues())
+linkedList6.deleteHead()
+console.log("Should return []", linkedList6.getLinkedListValues())
