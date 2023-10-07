@@ -117,8 +117,17 @@ class LinkedList {
         return this.head
     }
 
-    // deleteTail()
-        // return deleted node
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    deleteTail() {
+        const nodeBeforeTail = this.getNodeAtPosition(this.getLength() - 1)
+        if (nodeBeforeTail) {
+            nodeBeforeTail.next = null
+            return nodeBeforeTail
+        } else {
+            this.head = null
+            return this.head
+        }
+    }
 
     // deleteNodeAtPosition(position)
         // return deleted node
@@ -133,7 +142,7 @@ class LinkedList {
         let currentPosition = 1
         let currentNode = this.head
 
-        while (currentNode.next) {
+        while (currentNode && currentNode.next) {
             currentNode = currentNode.next
             currentPosition++
         }
@@ -251,3 +260,17 @@ linkedList6.deleteHead()
 console.log("Should return []", linkedList6.getLinkedListValues())
 linkedList6.deleteHead()
 console.log("Should return []", linkedList6.getLinkedListValues())
+console.log("========== TESTS FOR deleteTail ==========")
+const linkedList7 = new LinkedList([1,2,3,4,5])
+linkedList7.deleteTail()
+console.log("Should return [1,2,3,4]", linkedList7.getLinkedListValues())
+linkedList7.deleteTail()
+console.log("Should return [1,2,3]", linkedList7.getLinkedListValues())
+linkedList7.deleteTail()
+console.log("Should return [1,2]", linkedList7.getLinkedListValues())
+linkedList7.deleteTail()
+console.log("Should return [1]", linkedList7.getLinkedListValues())
+linkedList7.deleteTail()
+console.log("Should return []", linkedList7.getLinkedListValues())
+linkedList7.deleteTail()
+console.log("Should return []", linkedList7.getLinkedListValues())
