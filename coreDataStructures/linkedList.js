@@ -87,7 +87,42 @@ class LinkedList {
         return this.head
     }
 
-    
+    // O(1) time | O(1) space
+    updateHead(value) {
+        this.head.value = value
+        return this.head
+    }
+
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    updateTail(value) {
+        const tail = this.getTail()
+        tail.value = value
+        return tail
+    }
+
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    updateNodeAtPosition(value, position) {
+        const node = this.getNodeAtPosition(position)
+        if (node) node.value = value
+        return node
+    }
+
+    // O(1) time | O(1) space
+    deleteHead() {
+        const rootNode = this.head
+        if (rootNode) {
+            this.head = rootNode.next
+            rootNode.next = null
+        }
+        return this.head
+    }
+
+    // deleteTail()
+        // return deleted node
+
+    // deleteNodeAtPosition(position)
+        // return deleted node
+
     // O(n) time | O(1) space, where n is number of nodes in linked list
     getTail() {
         return  this.getNodeAtPosition(this.getLength())
@@ -131,43 +166,6 @@ class LinkedList {
         }
         return currentNode
     }
-
-    // O(1) time | O(1) space
-    updateHead(value) {
-        this.head.value = value
-        return this.head
-    }
-
-    // O(n) time | O(1) space, where n is number of nodes in linked list
-    updateTail(value) {
-        const tail = this.getTail()
-        tail.value = value
-        return tail
-    }
-
-    // O(n) time | O(1) space, where n is number of nodes in linked list
-    updateNodeAtPosition(value, position) {
-        const node = this.getNodeAtPosition(position)
-        if (node) node.value = value
-        return node
-    }
-
-    // O(1) time | O(1) space
-    deleteHead() {
-        const rootNode = this.head
-        if (rootNode) {
-            this.head = rootNode.next
-            rootNode.next = null
-        }
-        return this.head
-    }
-        // return deleted node
-
-    // deleteTail()
-        // return deleted node
-
-    // deleteNodeAtPosition(position)
-        // return deleted node
 }
 
 // TEST CASES
