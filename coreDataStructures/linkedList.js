@@ -129,8 +129,21 @@ class LinkedList {
         }
     }
 
-    // deleteNodeAtPosition(position)
-        // return deleted node
+    // O(n) time | O(1) space, where n is number of nodes in linked list
+    deleteNodeAtPosition(position) {
+        const length = this.getLength()
+        if (position < 1 || position > length) return null
+        if (position === 1) this.deleteHead()
+        if (position === length) this.deleteTail()
+        if (position > 1 && position < length) {
+            const nodeBeforeNodeToDelete = this.getNodeAtPosition(position - 1)
+            const nodeToDelete = nodeBeforeNodeToDelete.next
+            nodeBeforeNodeToDelete.next = nodeToDelete.next
+            nodeToDelete.next = null
+
+        }
+        return this.head
+    }
 
     // O(n) time | O(1) space, where n is number of nodes in linked list
     getTail() {
@@ -274,3 +287,15 @@ linkedList7.deleteTail()
 console.log("Should return []", linkedList7.getLinkedListValues())
 linkedList7.deleteTail()
 console.log("Should return []", linkedList7.getLinkedListValues())
+console.log("========== TESTS FOR deleteNodeAtPosition ==========")
+const linkedList8 = new LinkedList([1,2,3,4,5])
+linkedList8.deleteNodeAtPosition(-1)
+console.log("Should return [1,2,3,4,5]", linkedList8.getLinkedListValues())
+linkedList8.deleteNodeAtPosition(0)
+console.log("Should return [1,2,3,4,5]", linkedList8.getLinkedListValues())
+linkedList8.deleteNodeAtPosition(3)
+console.log("Should return [1,2,4,5]", linkedList8.getLinkedListValues())
+linkedList8.deleteNodeAtPosition(4)
+console.log("Should return [1,2,4]", linkedList8.getLinkedListValues())
+linkedList8.deleteNodeAtPosition(1)
+console.log("Should return [2,4]", linkedList8.getLinkedListValues())
