@@ -1,20 +1,22 @@
 class ArrayList {
+    #items
+    #count
     constructor(initialSize) {
-        this.items = new Array(initialSize)
-        this.count = 0
+        this.#items = new Array(initialSize)
+        this.#count = 0
     }
 
     append(item) {
-        if (this.count === this.items.length) {
-            console.log(`Current size is ${this.count}. Resizing to ${this.count * 2}.`)
-            const bigger = new Array(this.count * 2)
-            for (let i = 0; i < this.items.length; i++) {
-                bigger[i] = this.items[i]
+        if (this.#count === this.#items.length) {
+            console.log(`Current size is ${this.#count}. Resizing to ${this.#count * 2}.`)
+            const bigger = new Array(this.#count * 2)
+            for (let i = 0; i < this.#items.length; i++) {
+                bigger[i] = this.#items[i]
             }
-            this.items = bigger
+            this.#items = bigger
         }
-        this.items[this.count] = item
-        this.count++
+        this.#items[this.#count] = item
+        this.#count++
     }
 
     set(index, item) {
@@ -22,8 +24,8 @@ class ArrayList {
         if (!!outOfRange) {
             return outOfRange
         }
-        this.items[index] = item
-        return this.items[index]
+        this.#items[index] = item
+        return this.#items[index]
     }
 
     get(index) {
@@ -31,27 +33,23 @@ class ArrayList {
         if (!!outOfRange) {
             return outOfRange
         }
-        return this.items[index]
+        return this.#items[index]
     }
 
     getCopyOfItems() {
-        return this.items.slice(0)
-    }
-
-    remove(index) {
-        // TODO
-    }
-
-    clear() {
-        // TODO
+        return this.#items.slice(0)
     }
 
     size() {
-        return this.count
+        return this.#count
+    }
+
+    capacity() {
+        return this.#items.length
     }
 
     _returnErrorIfOutOfRange(index) {
-        if (index < 0 || index > this.count) {
+        if (index < 0 || index > this.#count) {
             return "Index out of range"
         }
     }
@@ -79,3 +77,9 @@ console.log("Should return 'c': ", arrayList.set(2, "c"))
 console.log("Should return 'd': ", arrayList.set(3, "d"))
 console.log("Should return 'e': ", arrayList.set(4, "e"))
 console.log("Should return ['a', 'b', 'c', 'd', 'e']: ", arrayList.getCopyOfItems())
+console.log("========== TESTS FOR size and capacity ==========")
+console.log("Should return '5': ", arrayList.size())
+console.log("Should return '5': ", arrayList.capacity())
+arrayList.append("F")
+console.log("Should return '6': ", arrayList.size())
+console.log("Should return '10': ", arrayList.capacity())
