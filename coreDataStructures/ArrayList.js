@@ -4,23 +4,8 @@ class ArrayList {
         this.count = 0
     }
 
-    get(index) {
-        _throwErrorIfOutOfRange(index)
-        return this.items[index]
-    }
-
-    set(index, item) {
-        _throwErrorIfOutOfRange(index)
-        this.items[index] = item
-        return this.items[index]
-    }
-
-    size() {
-        return this.count
-    }
-
     append(item) {
-        if (this.count >= this.items.length) {
+        if (this.count === this.items.length) {
             console.log(`Current size is ${this.count}. Resizing to ${this.count * 2}.`)
             const bigger = new Array(this.count * 2)
             for (let i = 0; i < this.items.length; i++) {
@@ -32,21 +17,53 @@ class ArrayList {
         this.count++
     }
 
-    _throwErrorIfOutOfRange(index) {
-        if (index < 0 || index >= this.count) {
-            throw Error("Index out of range")
+    set(index, item) {
+        const outOfRange = this._returnErrorIfOutOfRange(index)
+        if (!!outOfRange) {
+            return outOfRange
+        }
+        this.items[index] = item
+        return this.items[index]
+    }
+
+    get(index) {
+        const outOfRange = this._returnErrorIfOutOfRange(index)
+        if (!!outOfRange) {
+            return outOfRange
+        }
+        return this.items[index]
+    }
+
+    getCopyOfItems() {
+        return this.items.slice(0)
+    }
+
+    remove(index) {
+        // TODO
+    }
+
+    clear() {
+        // TODO
+    }
+
+    size() {
+        return this.count
+    }
+
+    _returnErrorIfOutOfRange(index) {
+        if (index < 0 || index > this.count) {
+            return "Index out of range"
         }
     }
 }
 
 // TEST CASES
-console.log("========== TESTS FOR <method> ==========")
-function arrayListTest() {
-    const numbers = new ArrayList(5)
-    for (let i = 0; i < 50; i++) {
-        numbers.append(i)
-        console.log(`Number ${i}`)
-    }
-    console.log("numbers: ", numbers)
-}
-console.log(arrayListTest())
+const arrayList = new ArrayList(5)
+console.log("========== TESTS FOR append ==========")
+arrayList.append("A")
+arrayList.append("B")
+arrayList.append("C")
+arrayList.append("D")
+arrayList.append("E")
+console.log("Should return ['A', 'B', 'C', 'D', 'E']: ", arrayList.getCopyOfItems())
+
