@@ -1,7 +1,7 @@
 class ArrayList {
     #items
     #count
-    constructor(initialSize) {
+    constructor(initialSize = 1) {
         this.#items = new Array(initialSize)
         this.#count = 0
     }
