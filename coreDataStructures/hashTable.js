@@ -13,31 +13,20 @@ class HashTable {
         if (!targetKeyValuePair) {
             this.table[keyIdx].push([key, value])
             this.size++
-        } else {
-            targetKeyValuePair[1] = value
+            return
         }
+        targetKeyValuePair[1] = value
     }
 
     get(key) {
         const keyIdx = this._hash(key)
-        if (this.table[keyIdx]) {
-            return this._getValueForKey(key, this.table[keyIdx])
-        }
-        return null
+        return this._getValueForKey(key, this.table[keyIdx] || [])
     }
 
     remove(key) {
         const keyIdx = this._hash(key)
         const keyValuePairs = this.table[keyIdx]
-        if (keyValuePairs?.length) {
-            for (let i = 0; i < keyValuePairs.length; i++) {
-                if (keyValuePairs[i][0] === key) {
-                    this.size--
-                    return keyValuePairs.splice(i, 1)[0]
-                }
-            }
-        }
-        return null
+        return this._deleteKeyValuePair(key, keyValuePairs || [])
     }
 
     _hash(key) {
@@ -50,6 +39,16 @@ class HashTable {
 
     _getValueForKey(key, keyValues) {
         return keyValues.find(keyValue => keyValue[0] === key)?.[1] || null
+    }
+
+    _deleteKeyValuePair(key, keyValuePairs) {
+        for (let i = 0; i < keyValuePairs.length; i++) {
+            if (keyValuePairs[i][0] === key) {
+                this.size--
+                return keyValuePairs.splice(i, 1)[0]
+            }
+        }
+        return null
     }
       
 }
