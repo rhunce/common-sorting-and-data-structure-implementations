@@ -11,10 +11,10 @@ class Node {
     }
 
     removeAdjacent(node) {
-        for (let i = 0; i < this.adjacents.length; i++) {
-            if (this.adjacents[i] === node) {
-                this.adjacents.splice(i, 1)
-            }
+        const nodeIdx = this.adjacents.indexOf(node)
+        if (nodeIdx !== -1) {
+            this.adjacents.splice(nodeIdx, 1)
+            return node
         }
     }
 
@@ -23,7 +23,6 @@ class Node {
     }
 
     isAdjacent(node) {
-        return !!this.adjacents.find(adjacent => adjacent === node)
+        return this.adjacents.indexOf(node) !== -1
     }
 }
-
