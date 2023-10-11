@@ -29,6 +29,15 @@ class HashTable {
         return this._deleteKeyValuePair(key, keyValuePairs || [])
     }
 
+    display() {
+        this.table.forEach((values, index) => {
+          const chainedValues = values.map(
+            ([key, value]) => `[ ${key}: ${value} ]`
+          );
+          console.log(`${index}: ${chainedValues}`);
+        });
+      }
+
     _hash(key) {
         let hash = 0
         for (let i = 0; i < key.length; i++) {
@@ -70,3 +79,5 @@ console.log("========== TESTS FOR remove method ==========")
 console.log("Should return [C1, C3]: ", hashTable.remove("C1"))
 console.log("Should return 2: ", hashTable.size)
 console.log("Should return null: ", hashTable.get("C1"))
+console.log("========== TESTS FOR display method ==========")
+hashTable.display()
