@@ -9,10 +9,12 @@ class HashTable {
         if (!this.table[keyIdx]) {
             this.table[keyIdx] = []
         }
-        const keyValuePairExists = this.table[keyIdx].find(valueAtKey => valueAtKey[0] === key)
-        if (!keyValuePairExists) {
+        const targetKeyValuePair = this.table[keyIdx].find(valueAtKey => valueAtKey[0] === key)
+        if (!targetKeyValuePair) {
             this.table[keyIdx].push([key, value])
             this.size++
+        } else {
+            targetKeyValuePair[1] = value
         }
     }
 
@@ -47,7 +49,7 @@ class HashTable {
     }
 
     _getValueForKey(key, keyValues) {
-        return keyValues.find(keyValue => keyValue[0] === key)?.[1]
+        return keyValues.find(keyValue => keyValue[0] === key)?.[1] || null
     }
       
 }
@@ -62,9 +64,10 @@ console.log("Should return B2: ", hashTable.get("B1"))
 hashTable.set("C1", "C2")
 console.log("Should return C2: ", hashTable.get("C1"))
 console.log("Should return 3: ", hashTable.size)
-hashTable.set("C1", "C2")
-console.log("Should return C2: ", hashTable.get("C1"))
+hashTable.set("C1", "C3")
+console.log("Should return C3: ", hashTable.get("C1"))
 console.log("Should return 3: ", hashTable.size)
 console.log("========== TESTS FOR remove method ==========")
-console.log("Should return [C1, C2]: ", hashTable.remove("C1"))
+console.log("Should return [C1, C3]: ", hashTable.remove("C1"))
 console.log("Should return 2: ", hashTable.size)
+console.log("Should return null: ", hashTable.get("C1"))
