@@ -24,8 +24,18 @@ class HashTable {
         return null
     }
 
-    remove() {
-        // ...
+    remove(key) {
+        const keyIdx = this._hash(key)
+        const keyValuePairs = this.table[keyIdx]
+        if (keyValuePairs?.length) {
+            for (let i = 0; i < keyValuePairs.length; i++) {
+                if (keyValuePairs[i][0] === key) {
+                    this.size--
+                    return keyValuePairs.splice(i, 1)[0]
+                }
+            }
+        }
+        return null
     }
 
     _hash(key) {
@@ -55,3 +65,6 @@ console.log("Should return 3: ", hashTable.size)
 hashTable.set("C1", "C2")
 console.log("Should return C2: ", hashTable.get("C1"))
 console.log("Should return 3: ", hashTable.size)
+console.log("========== TESTS FOR remove method ==========")
+console.log("Should return [C1, C2]: ", hashTable.remove("C1"))
+console.log("Should return 2: ", hashTable.size)
