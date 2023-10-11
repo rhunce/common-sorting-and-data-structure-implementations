@@ -41,14 +41,15 @@ class Graph {
         }
     }
 
-    addEdge(source, destination) {
-        this.addNode(source)
-        this.addNode(destination)
-        source.addAdjacent(destination)
+
+    addEdge(sourceNode, destinationNode) {
+        this.addNode(sourceNode)
+        this.addNode(destinationNode)
+        sourceNode.addAdjacent(destinationNode)
         if (this.edgeDirection === Graph.UNDIRECTED) {
-            destination.addAdjacent(source)
+            destinationNode.addAdjacent(sourceNode)
         }
-        return [source, destination]
+        return [sourceNode, destinationNode]
     }
 
 
