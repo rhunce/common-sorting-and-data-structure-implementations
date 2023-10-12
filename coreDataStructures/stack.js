@@ -36,6 +36,7 @@ class Stack {
     printStack() {
         if (this.isEmpty()) {
             console.log(Stack.EMPTY_STACK)
+            return
         }
         for (const el of this.#stack) {
             console.log(el)
