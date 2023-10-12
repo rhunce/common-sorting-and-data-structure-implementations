@@ -34,17 +34,19 @@ class Graph {
         this.edgeDirection = edgeDirection;
     }
 
-    addNode(node) {
-        const nodeInGraph = !!this.nodes.get(node.value)
+    addNode(value) {
+        const nodeInGraph = !!this.nodes.get(value)
         if (!nodeInGraph) {
-            this.nodes.set(node.value, node)
+            const newNode = new Node(value)
+            this.nodes.set(value, newNode)
+            return newNode
         }
+        return nodeInGraph
     }
 
-
-    addEdge(sourceNode, destinationNode) {
-        this.addNode(sourceNode)
-        this.addNode(destinationNode)
+    addEdge(sourceValue, destinationValue) {
+        const sourceNode = this.addNode(sourceValue)
+        const destinationNode = this.addNode(destinationValue)
         sourceNode.addAdjacent(destinationNode)
         if (this.edgeDirection === Graph.UNDIRECTED) {
             destinationNode.addAdjacent(sourceNode)
@@ -52,19 +54,30 @@ class Graph {
         return [sourceNode, destinationNode]
     }
 
+    removeNode(value) {
+        const nodeToRemove = this.nodes.get(value)
+        if (!nodeToRemove) {
+            return null
+        }
+        for (const node of this.nodes.values()) {
+            node.removeAdjacent(nodeToRemove)
+        }
+        return this.nodes.delete(value)
+    }
 
+    removeEdge(sourceValue, destinationValue) {
+        const sourceNode = this.nodes.get(sourceValue)
+        const destinationNode = this.nodes.get(destinationValue)
+        if (!sourceNode || !destinationNode) {
+            return null
+        }
+        sourceNode.removeAdjacent(destinationNode)
+        if (this.edgeDirection === Graph.UNDIRECTED) {
+            destinationNode.removeAdjacent(sourceNode)
+        }
+        return [sourceNode, destinationNode]
+    }
 }
 
 Graph.UNDIRECTED = Symbol('undirected graph'); // two-ways edges
 Graph.DIRECTED = Symbol('directed graph'); // one-way edges
-
-
-// const nodeAU = new Node("aU")
-// const nodeBU = new Node("bU")
-// const undirectedGraph = new Graph(Graph.UNDIRECTED)
-// const [a, b] = undirectedGraph.addEdge(nodeAU, nodeBU)
-
-// const nodeAD = new Node("aD")
-// const nodeBD = new Node("bD")
-// const directedGraph = new Graph(Graph.DIRECTED)
-// const [c, d] = directedGraph.addEdge(nodeAD, nodeBD)
