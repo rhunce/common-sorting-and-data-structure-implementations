@@ -1,6 +1,8 @@
 class Node {
     constructor(value) {
         this.value = value
+        // can make adjacents a hash set so that removeAdjacent and isAdjacent runs in
+        // O(1) time instead of O(e) time, where e = # of edges = length of adjacents
         this.adjacents = []
     }
 
