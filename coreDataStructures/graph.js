@@ -20,10 +20,6 @@ class Node {
         }
     }
 
-    getAdjacents() {
-        return this.adjacents
-    }
-
     isAdjacent(node) {
         return this.adjacents.indexOf(node) !== -1
     }
@@ -96,12 +92,26 @@ class Graph {
         }
     }
 
+    // Can also implement iteratively identically to breadthFirstSearch
+    // except with a stack. The order will be reversed DFS, however.
+    depthFirstSearch(firstNodeValue, visited = {}) {
+        const firstNode = this.nodes.get(firstNodeValue)
+        if (!firstNode) {
+            return null
+        }
+        console.log(firstNode.value)
+        visited[firstNode.value] = true
+        for (const adjacentNode of firstNode.adjacents) {
+            if (!visited[adjacentNode.value]) {
+                this.depthFirstSearch(adjacentNode.value, visited)
+            }
+        }
+    }
 
 }
-
 Graph.UNDIRECTED = Symbol('undirected graph'); // two-ways edges
 Graph.DIRECTED = Symbol('directed graph'); // one-way edges
-/*
+
 console.log("========== TESTS FOR Directed Graph ==========")
 const directedGraph = new Graph(Graph.DIRECTED)
 directedGraph.addNode("a")
@@ -117,7 +127,6 @@ console.log("Node 'a' should have one adjacency to 'b'. 'c' should be gone: ", d
 directedGraph.removeEdge("a", "b")
 console.log("Node 'a' should have no adjacencies: ", directedGraph.nodes)
 
-
 console.log("========== TESTS FOR Undirected Graph ==========")
 const undirectedGraph = new Graph(Graph.UNDIRECTED)
 undirectedGraph.addNode("x")
@@ -132,23 +141,27 @@ undirectedGraph.removeNode("z")
 console.log("Node 'x' should have one adjacency to 'y'. 'z' should be gone: ", undirectedGraph.nodes)
 undirectedGraph.removeEdge("x", "y")
 console.log("Nodes 'x' and 'y' should have no adjacencies: ", undirectedGraph.nodes)
-*/
-console.log("========== TESTS FOR Graph BFS method ==========")
-const bfsTestGraph = new Graph(Graph.UNDIRECTED)
-bfsTestGraph.addEdge(1, 2)
-bfsTestGraph.addEdge(1, 3)
-bfsTestGraph.addEdge(1, 4)
-bfsTestGraph.addEdge(2, 5)
-bfsTestGraph.addEdge(3, 6)
-bfsTestGraph.addEdge(3, 7)
-bfsTestGraph.addEdge(4, 8)
-bfsTestGraph.addEdge(5, 9)
-bfsTestGraph.addEdge(6, 10)
+
 /*
         1
 2       3        4
 5      6 7       8
 9     10
 */
+const searchTestGraph = new Graph(Graph.UNDIRECTED)
+searchTestGraph.addEdge(1, 2)
+searchTestGraph.addEdge(1, 3)
+searchTestGraph.addEdge(1, 4)
+searchTestGraph.addEdge(2, 5)
+searchTestGraph.addEdge(3, 6)
+searchTestGraph.addEdge(3, 7)
+searchTestGraph.addEdge(4, 8)
+searchTestGraph.addEdge(5, 9)
+searchTestGraph.addEdge(6, 10)
+console.log("========== TESTS FOR Graph BFS method ==========")
 console.log("Should print 1 2 3 4 5 6 7 8 9 10")
-bfsTestGraph.breadthFirstSearch(1)
+searchTestGraph.breadthFirstSearch(1)
+
+console.log("========== TESTS FOR Graph DFS method ==========")
+console.log("Should print 1, 2, 5, 9, 3, 6, 10, 7, 4, 8")
+dfsFromFirst = searchTestGraph.depthFirstSearch(1)
