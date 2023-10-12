@@ -5,29 +5,30 @@ This project implements common sorting algorithms, data structures, and search a
 
 ### Core Sorting Algorithms
 - [x] Bubble sort
-- [x] Selection sort
 - [x] Insertion sort
-- [x] Quick sort
 - [x] Merge sort
+- [x] Quick sort
+- [x] Selection sort
 
 ### Other Advanced Sorting Algorithms
 - [ ] Bucket sort
-- [ ] Shell sort
-- [ ] Heap sort
 - [ ] Counting Sort
+- [ ] Heap sort
 - [ ] Radix Sort
+- [ ] Shell sort
 
 ### Core Data Structures
-- [ ] Linked List
-- [ ] Hash Table
-- [ ] Stack
-- [ ] Queue
-- [ ] Tree
-- [ ] Binary Tree
+- [x] Array List
 - [ ] Binary Search Tree
-- [ ] Min Heap
+- [ ] Binary Tree
+- [x] Graph
+- [x] Hash Table
+- [x] Linked List
 - [ ] Max Heap
-- [ ] Graph
+- [ ] Min Heap
+- [ ] Queue
+- [ ] Stack
+- [ ] Tree
 
 ### Other Advanced Data Structures
 - TBD
