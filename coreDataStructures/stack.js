@@ -13,14 +13,14 @@ class Stack {
 
     pop() {
         if (this.isEmpty()) {
-            return "Stack is empty"
+            return Stack.EMPTY_STACK
         }
         return this.#stack.pop()
     }
 
     peek() {
         if (this.isEmpty()) {
-            return "Stack is empty"
+            return Stack.EMPTY_STACK
         }
         return this.#stack[this.size() - 1]
     }
@@ -35,13 +35,14 @@ class Stack {
 
     printStack() {
         if (this.isEmpty()) {
-            console.log("Stack is empty")
+            console.log(Stack.EMPTY_STACK)
         }
         for (const el of this.#stack) {
             console.log(el)
         }
     }
 }
+Stack.EMPTY_STACK = Symbol("Stack is empty")
 
 // TEST CASES
 console.log("========== TESTS FOR Stack ==========")
