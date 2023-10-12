@@ -1,53 +1,64 @@
 class Queue {
     #queue
+    #frontIndex
+    #backIndex
     constructor() {
-        // can use linked list here (that includes a pointer to tail)
-        // for more efficient memory allocation
-        this.#queue = []
+        this.#queue = {}
+        this.#frontIndex = 0
+        this.#backIndex = 0
     }
 
+    // O(1) time | O(1) space
     enqueue(value) {
-        this.#queue.unshift(value)
-        return this.peekBackOfQueue()
+        this.#queue[this.#backIndex] = value
+        this.#backIndex++
+        return this.#queue[this.#backIndex - 1]
     }
 
+    // O(1) time | O(1) space
     dequeue() {
         if (this.isEmpty()) {
             return Queue.EMPTY_QUEUE
         }
-        return this.#queue.pop()
+        const value = this.#queue[this.#frontIndex]
+        delete this.#queue[this.#frontIndex]
+        this.#frontIndex++
+        return value
     }
 
+    // O(1) time | O(1) space
     size() {
-        return this.#queue.length
+        return this.#backIndex - this.#frontIndex
     }
 
+    // O(1) time | O(1) space
     isEmpty() {
         return this.size() === 0
     }
 
+    // O(1) time | O(1) space
     peekBackOfQueue() {
         if (this.isEmpty()) {
             return Queue.EMPTY_QUEUE
         }
-        return this.#queue[0]
+        return this.#queue[this.#backIndex - 1]
     }
 
+    // O(1) time | O(1) space
     peekFrontOfQueue() {
         if (this.isEmpty()) {
             return Queue.EMPTY_QUEUE
         }
-        return this.#queue[this.size() - 1]
-
+        return this.#queue[this.#frontIndex]
     }
 
+    // O(1) time | O(1) space
     printQueue() {
         if (this.isEmpty()) {
             console.log(Queue.EMPTY_QUEUE)
+            return
         }
-        for (const el of this.#queue) {
-            console.log(el)
-        }
+        console.log(this.#queue)
     }
 }
 Queue.EMPTY_QUEUE = Symbol("Queue is empty")
@@ -59,7 +70,7 @@ console.log("Should return true: ", queue.isEmpty())
 console.log("Should return 1: ", queue.enqueue(1))
 console.log("Should return 2: ", queue.enqueue(2))
 console.log("Should return 3: ", queue.enqueue(3))
-console.log("Should print 3 2 1")
+console.log("Should print { '0': 1, '1': 2, '2': 3 }")
 queue.printQueue()
 console.log("Should return 3: ", queue.size())
 console.log("Should return 3: ", queue.peekBackOfQueue())
