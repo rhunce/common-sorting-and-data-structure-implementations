@@ -1,7 +1,7 @@
 class MinHeap {
     #minHeap
-    constructor() {
-        this.#minHeap = []
+    constructor(array = []) {
+        this.#minHeap = this.heapify(array)
     }
     
     insertValue(value) {
@@ -14,12 +14,20 @@ class MinHeap {
         if (!this._size()) return this.getHeapCopy()
         this.#minHeap[0] = this.#minHeap[this._size() - 1]
         this.#minHeap.pop()
-        this._trickleDown()
+        this._trickleDown(this.#minHeap)
         return this.getHeapCopy()
     }
 
-    heapify() {
-        // ...
+    heapify(arr, idx = 0) {
+        if (arr.length < 2) return arr
+        while (this._trickleDown(arr, idx)) {
+            continue
+        }
+        const leftChildIdx = (2*idx) + 1
+        const rightChildIdx = (2*idx) + 2
+        if (leftChildIdx < arr.length) this.heapify(arr, leftChildIdx)
+        if (rightChildIdx < arr.length) this.heapify(arr, rightChildIdx)
+        return arr
     }
 
     getHeapCopy() {
@@ -38,20 +46,22 @@ class MinHeap {
         }
     }
 
-    _trickleDown() {
-        let currentIdx = 0
-        while ((2*currentIdx) + 1 < this.#minHeap.length) {
+    _trickleDown(arr, idx = 0) {
+        let currentIdx = idx
+        let trickled = false
+        while ((2*currentIdx) + 1 < arr.length) {
             const leftIdx = (2*currentIdx) + 1
             const rightIdx = (2*currentIdx) + 2
-            const minChildIdx = rightIdx < this.#minHeap.length && this.#minHeap[rightIdx] < this.#minHeap[leftIdx] ? rightIdx : leftIdx
-            if (this.#minHeap[currentIdx] > this.#minHeap[minChildIdx]) {
-                this._swap(this.#minHeap, currentIdx, minChildIdx)
+            const minChildIdx = rightIdx < arr.length && arr[rightIdx] < arr[leftIdx] ? rightIdx : leftIdx
+            if (arr[currentIdx] > arr[minChildIdx]) {
+                this._swap(arr, currentIdx, minChildIdx)
+                trickled = true
                 currentIdx = minChildIdx
             } else {
                 break
             }
         }
-        return this.getHeapCopy()
+        return trickled
     }
 
     _size() {
@@ -117,3 +127,5 @@ minHeap2.removeRootValue()
 console.log("Should return [ 4 ]: ", minHeap2.getHeapCopy(), JSON.stringify([4]) === JSON.stringify(minHeap2.getHeapCopy()))
 minHeap2.removeRootValue()
 console.log("Should return []: ", minHeap2.getHeapCopy(), JSON.stringify([]) === JSON.stringify(minHeap2.getHeapCopy()))
+const minHeap3 = new MinHeap([7,6,5,4,3,2,1])
+console.log("Should return [1,3,2,4,6,5,7]", minHeap3.getHeapCopy(), JSON.stringify([1,3,2,4,6,5,7]) === JSON.stringify(minHeap3.getHeapCopy()))
