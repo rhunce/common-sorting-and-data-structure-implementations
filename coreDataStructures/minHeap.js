@@ -1,24 +1,20 @@
 class MinHeap {
     #minHeap
-    #lastIndex
     constructor() {
         this.#minHeap = []
-        this.#lastIndex = 0
     }
     
     insertValue(value) {
-        this.#minHeap[this.#lastIndex] = value
-        this._bubbleUp(this.#lastIndex)
-        this.#lastIndex++
+        this.#minHeap[this.#minHeap.length] = value
+        this._bubbleUp(this.#minHeap.length - 1)
         return this.getHeapCopy()
     }
 
     removeRootValue() {
         if (!this.#minHeap.length) return this.getHeapCopy()
-        this.#minHeap[0] = this.#minHeap[this.#lastIndex - 1]
+        this.#minHeap[0] = this.#minHeap[this.#minHeap.length - 1]
         this.#minHeap.pop()
         this._trickleDown()
-        this.#lastIndex--
         return this.getHeapCopy()
     }
 
