@@ -5,6 +5,13 @@ class MinHeap {
         this.#minHeap = []
         this.#lastIndex = 0
     }
+    
+    insertValue(value) {
+        this.#minHeap[this.#lastIndex] = value
+        this._bubbleUp(this.#lastIndex)
+        this.#lastIndex++
+        return this.getHeapCopy()
+    }
 
     removeRootValue() {
         if (!this.#minHeap.length) return this.getHeapCopy()
@@ -13,12 +20,6 @@ class MinHeap {
         this._trickleDown()
         this.#lastIndex--
         return this.getHeapCopy()
-    }
-
-    insertValue(value) {
-        this.#minHeap[this.#lastIndex] = value
-        this._bubbleUp(this.#lastIndex)
-        this.#lastIndex++
     }
 
     heapify() {
@@ -72,28 +73,53 @@ class MinHeap {
 
 // TEST CASES
 console.log("========== TESTS FOR insertValue ==========")
-const minHeap = new MinHeap()
-minHeap.insertValue(0)
-console.log("Should return [ 0 ]: ", minHeap.getHeapCopy())
-minHeap.insertValue(1)
-console.log("Should return [ 0, 1 ]: ", minHeap.getHeapCopy())
-minHeap.insertValue(2)
-console.log("Should return [ 0, 1, 2 ]: ", minHeap.getHeapCopy())
-minHeap.insertValue(3)
-console.log("Should return [ 0, 1, 2, 3 ]: ", minHeap.getHeapCopy())
-minHeap.insertValue(4)
-console.log("Should return [ 0, 1, 2, 3, 4 ]: ", minHeap.getHeapCopy())
-minHeap.insertValue(-1)
-console.log("Should return [ -1, 1, 0, 3, 4, 2 ]: ", minHeap.getHeapCopy())
-minHeap.removeRootValue()
-console.log("Should return [ 0, 1, 2, 3, 4 ]: ", minHeap.getHeapCopy())
-minHeap.removeRootValue()
-console.log("Should return [ 1, 3, 2, 4 ]: ", minHeap.getHeapCopy())
-minHeap.removeRootValue()
-console.log("Should return [ 2, 3, 4 ]: ", minHeap.getHeapCopy())
-minHeap.removeRootValue()
-console.log("Should return [ 3, 4 ]: ", minHeap.getHeapCopy())
-minHeap.removeRootValue()
-console.log("Should return [ 4 ]: ", minHeap.getHeapCopy())
-minHeap.removeRootValue()
-console.log("Should return []: ", minHeap.getHeapCopy())
+const minHeap1 = new MinHeap()
+minHeap1.insertValue(0)
+console.log("Should return [ 0 ]: ", minHeap1.getHeapCopy())
+minHeap1.insertValue(1)
+console.log("Should return [ 0, 1 ]: ", minHeap1.getHeapCopy())
+minHeap1.insertValue(2)
+console.log("Should return [ 0, 1, 2 ]: ", minHeap1.getHeapCopy())
+minHeap1.insertValue(3)
+console.log("Should return [ 0, 1, 2, 3 ]: ", minHeap1.getHeapCopy())
+minHeap1.insertValue(4)
+console.log("Should return [ 0, 1, 2, 3, 4 ]: ", minHeap1.getHeapCopy())
+minHeap1.insertValue(-1)
+console.log("Should return [ -1, 1, 0, 3, 4, 2 ]: ", minHeap1.getHeapCopy())
+minHeap1.removeRootValue()
+console.log("Should return [ 0, 1, 2, 3, 4 ]: ", minHeap1.getHeapCopy())
+minHeap1.removeRootValue()
+console.log("Should return [ 1, 3, 2, 4 ]: ", minHeap1.getHeapCopy())
+minHeap1.removeRootValue()
+console.log("Should return [ 2, 3, 4 ]: ", minHeap1.getHeapCopy())
+minHeap1.removeRootValue()
+console.log("Should return [ 3, 4 ]: ", minHeap1.getHeapCopy())
+minHeap1.removeRootValue()
+console.log("Should return [ 4 ]: ", minHeap1.getHeapCopy())
+minHeap1.removeRootValue()
+console.log("Should return []: ", minHeap1.getHeapCopy())
+const minHeap2 = new MinHeap()
+minHeap2.insertValue(4)
+console.log("Should return [ 4 ]: ", minHeap2.getHeapCopy())
+minHeap2.insertValue(3)
+console.log("Should return [ 3, 4 ]: ", minHeap2.getHeapCopy())
+minHeap2.insertValue(2)
+console.log("Should return [ 2, 4, 3 ]: ", minHeap2.getHeapCopy())
+minHeap2.insertValue(1)
+console.log("Should return [ 1, 2, 3, 4 ]: ", minHeap2.getHeapCopy())
+minHeap2.insertValue(0)
+console.log("Should return [ 0, 1, 3, 4, 2 ]: ", minHeap2.getHeapCopy())
+minHeap2.insertValue(-1)
+console.log("Should return [ -1, 1, 0, 4, 2, 3 ]: ", minHeap2.getHeapCopy())
+minHeap2.removeRootValue()
+console.log("Should return [ 0, 1, 3, 4, 2 ]: ", minHeap2.getHeapCopy())
+minHeap2.removeRootValue()
+console.log("Should return [ 1, 2, 3, 4 ]: ", minHeap2.getHeapCopy())
+minHeap2.removeRootValue()
+console.log("Should return [ 2, 4, 3 ]: ", minHeap2.getHeapCopy())
+minHeap2.removeRootValue()
+console.log("Should return [ 3, 4 ]: ", minHeap2.getHeapCopy())
+minHeap2.removeRootValue()
+console.log("Should return [ 4 ]: ", minHeap2.getHeapCopy())
+minHeap2.removeRootValue()
+console.log("Should return []: ", minHeap2.getHeapCopy())
