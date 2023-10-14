@@ -22,17 +22,8 @@ class Tree {
     /*
     value 5
 
-    ***dfs(1)
-    node = Node(1)
-                          x
-    node.children = [{2},{3},{4}]
-
-    **dfs(3)
-    node = Node(3)
-                      x
-    node.children = [{5}]
-
-
+    1 4 7
+    queue = [{2},{3},{4} {5} {}
                 1
             2   3   4
                 5   6 7
@@ -47,8 +38,14 @@ class Tree {
         return null
     }
 
-    breadthFirstSearch(value) {
-        // ...
+    breadthFirstSearch(value, node = this.root) {
+        let queue = [node]
+        while (queue.length) {
+            const currentNode = queue.shift()
+            if (currentNode.value === value) return currentNode
+            queue.push(...currentNode.children)
+        }
+        return null
     }
 
     getDepth() {
@@ -93,3 +90,8 @@ console.log("Test 9: ", JSON.stringify(tree1.depthFirstSearch(2)) === JSON.strin
 console.log("Test 10: ", JSON.stringify(tree1.depthFirstSearch(4)) === JSON.stringify({value:4,children:[{value:6,children:[]}]}) ? "PASS" : "FAIL")
 console.log("Test 11: ", JSON.stringify(tree1.depthFirstSearch(6)) === JSON.stringify({value:6,children:[]}) ? "PASS" : "FAIL")
 console.log("Test 12: ", JSON.stringify(tree1.depthFirstSearch(7)) === "null" ? "PASS" : "FAIL")
+console.log("Test 13: ", JSON.stringify(tree1.breadthFirstSearch(1)) === JSON.stringify({value:1,children:[{value:2,children:[]},{value:4,children:[{value:6,children:[]}]}]}) ? "PASS" : "FAIL")
+console.log("Test 14: ", JSON.stringify(tree1.breadthFirstSearch(2)) === JSON.stringify({value:2,children:[]}) ? "PASS" : "FAIL")
+console.log("Test 15: ", JSON.stringify(tree1.breadthFirstSearch(4)) === JSON.stringify({value:4,children:[{value:6,children:[]}]}) ? "PASS" : "FAIL")
+console.log("Test 16: ", JSON.stringify(tree1.breadthFirstSearch(6)) === JSON.stringify({value:6,children:[]}) ? "PASS" : "FAIL")
+console.log("Test 17: ", JSON.stringify(tree1.breadthFirstSearch(7)) === "null" ? "PASS" : "FAIL")
