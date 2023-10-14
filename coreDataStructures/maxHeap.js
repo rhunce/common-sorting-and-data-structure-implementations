@@ -18,17 +18,22 @@ class MaxHeap {
         return this.getHeapCopy()
     }
 
-    getHeapCopy() {
-        return this.#maxHeap.slice(0)
+    getHeapCopy(arr = this.#maxHeap) {
+        return arr.slice(0)
     }
 
-    size() {
-        return this.#maxHeap.length
+    size(arr = this.#maxHeap) {
+        return arr.length
     }
 
-    _heapify(arr) {
+    _heapify(arr, idx = 0) {
         if (arr.length < 2) return arr
-        // ...
+        while (this._hasLeftChild(arr, idx) && this._leftChild(arr, idx) > arr[idx] || this._hasRightChild(arr, idx) && this._rightChild(arr, idx) > arr[idx]) {
+            this._trickleDown(arr, idx)
+        }
+        if (this._hasLeftChild(arr, idx)) this._trickleDown(arr, this._getLeftChildIdx(idx))
+        if (this._hasRightChild(arr, idx)) this._trickleDown(arr, this._getRightChildIdx(idx))
+        return this.getHeapCopy(arr)
     }
 
     _bubbleUp(arr, idx) {
@@ -54,7 +59,7 @@ class MaxHeap {
                 break
             }
         }
-        return this.getHeapCopy()
+        return this.getHeapCopy(arr)
     }
 
     _swap(arr, idxOne, idxTwo) {
@@ -157,5 +162,5 @@ console.log("Should return [ -1 ]: ", maxHeap2.getHeapCopy(), JSON.stringify([-1
 maxHeap2.removeRootValue()
 console.log("Should return []: ", maxHeap2.getHeapCopy(), JSON.stringify([]) === JSON.stringify(maxHeap2.getHeapCopy()))
 console.log("========== TESTS FOR heapify ==========")
-// const maxHeap3 = new MaxHeap([1,2,3,4,5,6,7])
-// console.log("Should return [....]", maxHeap3.getHeapCopy(), JSON.stringify([....]) === JSON.stringify(maxHeap3.getHeapCopy()))
+const maxHeap3 = new MaxHeap([1,2,3,4,5,6,7])
+console.log("Should return [ 7, 5, 6, 4, 2, 3, 1 ]", maxHeap3.getHeapCopy(), JSON.stringify([7,5,6,4,2,3,1]) === JSON.stringify(maxHeap3.getHeapCopy()))
