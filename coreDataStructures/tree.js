@@ -19,16 +19,6 @@ class Tree {
         return childNodeIndex > -1 ? parentNode.children.splice(childNodeIndex, 1) : null
     }
 
-    /*
-    value 5
-
-    1 4 7
-    queue = [{2},{3},{4} {5} {}
-                1
-            2   3   4
-                5   6 7
-
-    */
     depthFirstSearch(value, node = this.root) {
         if (node.value === value) return node
         for (const childNode of node.children) {
@@ -48,11 +38,17 @@ class Tree {
         return null
     }
 
-    getDepth() {
-        // ...
+    getDepth(node = this.root, depthInfo = { currentDepth: 0, maxDepth: 0 }) {
+        for (const childNode of node.children) {
+            depthInfo.currentDepth++
+            this.getDepth(childNode, depthInfo)
+            if (depthInfo.currentDepth > depthInfo.maxDepth) depthInfo.maxDepth = depthInfo.currentDepth
+            depthInfo.currentDepth--
+        }
+        return depthInfo.maxDepth
     }
 
-    // number of nodes in the level having the greatest number of nodes
+    // TODO: Returns number of nodes in the level having the greatest number of nodes
     getMaxWidth() {
         // ...
     }
@@ -95,3 +91,11 @@ console.log("Test 14: ", JSON.stringify(tree1.breadthFirstSearch(2)) === JSON.st
 console.log("Test 15: ", JSON.stringify(tree1.breadthFirstSearch(4)) === JSON.stringify({value:4,children:[{value:6,children:[]}]}) ? "PASS" : "FAIL")
 console.log("Test 16: ", JSON.stringify(tree1.breadthFirstSearch(6)) === JSON.stringify({value:6,children:[]}) ? "PASS" : "FAIL")
 console.log("Test 17: ", JSON.stringify(tree1.breadthFirstSearch(7)) === "null" ? "PASS" : "FAIL")
+console.log("========== TESTS FOR getDepth ==========")
+console.log("Test 18: ", tree1.getDepth() === 2 ? "PASS" : "FAIL")
+tree1.removeNode(node4, node6)
+console.log("Test 19: ", tree1.getDepth() === 1 ? "PASS" : "FAIL")
+tree1.removeNode(rootNode, node4)
+console.log("Test 20: ", tree1.getDepth() === 1 ? "PASS" : "FAIL")
+tree1.removeNode(rootNode, node2)
+console.log("Test 21: ", tree1.getDepth() === 0 ? "PASS" : "FAIL")
