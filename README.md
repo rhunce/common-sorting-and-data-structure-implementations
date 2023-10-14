@@ -24,8 +24,8 @@ This project implements common sorting algorithms, data structures, and search a
 - [x] Graph
 - [x] Hash Table
 - [x] Linked List
-- [ ] Max Heap
-- [ ] Min Heap
+- [x] Max Heap
+- [x] Min Heap
 - [x] Queue
 - [x] Stack
 - [ ] Tree
