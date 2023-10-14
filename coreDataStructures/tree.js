@@ -10,15 +10,22 @@ class Tree {
         this.root = node
     }
 
+    // O(1) time | O(1) space
     insertNode(parentNode, childNode) {
         parentNode.children.push(childNode)
     }
 
+    // O(c) time | O(1) space
+    // c = # of children in parent node
     removeNode(parentNode, childNode) {
         const childNodeIndex = parentNode.children.indexOf(childNode)
         return childNodeIndex > -1 ? parentNode.children.splice(childNodeIndex, 1) : null
     }
 
+    // O(n + e) time | O(d) space
+    // n = # of nodes in tree
+    // e = # of edges in tree
+    // d = depth of tree
     depthFirstSearch(value, node = this.root) {
         if (node.value === value) return node
         for (const childNode of node.children) {
@@ -28,6 +35,11 @@ class Tree {
         return null
     }
 
+
+    // If implemented with an actual Queue
+    // O(n + e) time | O(n) space
+    // n = # of nodes in tree
+    // e = # of edges in tree
     breadthFirstSearch(value, node = this.root) {
         let queue = [node]
         while (queue.length) {
@@ -38,6 +50,10 @@ class Tree {
         return null
     }
 
+    // O(n + e) time | O(d) space
+    // n = # of nodes in tree
+    // e = # of edges in tree
+    // d = depth of tree
     getDepth(node = this.root, depthInfo = { currentDepth: 0, maxDepth: 0 }) {
         for (const childNode of node.children) {
             depthInfo.currentDepth++
