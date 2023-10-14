@@ -5,14 +5,14 @@ class MinHeap {
     }
     
     insertValue(value) {
-        this.#minHeap[this.#minHeap.length] = value
-        this._bubbleUp(this.#minHeap.length - 1)
+        this.#minHeap.push(value)
+        this._bubbleUp(this._size() - 1)
         return this.getHeapCopy()
     }
 
     removeRootValue() {
-        if (!this.#minHeap.length) return this.getHeapCopy()
-        this.#minHeap[0] = this.#minHeap[this.#minHeap.length - 1]
+        if (!this._size()) return this.getHeapCopy()
+        this.#minHeap[0] = this.#minHeap[this._size() - 1]
         this.#minHeap.pop()
         this._trickleDown()
         return this.getHeapCopy()
@@ -58,6 +58,10 @@ class MinHeap {
         if (leftChild !== undefined && rightChild === undefined) return leftChildIdx
         if (leftChild === undefined && rightChild !== undefined) return rightChildIdx
         return leftChild < rightChild ? leftChildIdx : rightChildIdx
+    }
+
+    _size() {
+        return this.#minHeap.length
     }
 
     _swap(arr, idxOne, idxTwo) {
