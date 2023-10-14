@@ -15,11 +15,8 @@ class Tree {
     }
 
     removeNode(parentNode, childNode) {
-        // ...
-    }
-
-    findNodeHavingValue(value) {
-        // ...
+        const childNodeIndex = parentNode.children.indexOf(childNode)
+        return childNodeIndex > -1 ? parentNode.children.splice(childNodeIndex, 1) : null
     }
 
     depthFirstSearch(value) {
@@ -46,14 +43,13 @@ class Tree {
         2   3   4
             5   6 7
 
-
 */
 
 // TEST CASES
-console.log("========== TESTS FOR insertNodeWithValue ==========")
+console.log("========== TESTS FOR insertNode ==========")
 const rootNode = new Node(1)
 const tree1 = new Tree(rootNode)
-console.log("Test 1: ", JSON.stringify(tree1.root) === JSON.stringify({ value: 1, children: [] }) ? "PASS" : "FAIL")
+console.log("Test 1: ", JSON.stringify(tree1.root) === JSON.stringify({value:1,children:[]}) ? "PASS" : "FAIL")
 const node2 = new Node(2)
 const node3 = new Node(3)
 const node4 = new Node(4)
@@ -70,4 +66,9 @@ console.log("Test 2: ", JSON.stringify(tree1.root) === JSON.stringify({value:1,c
 console.log("Test 3: ", JSON.stringify(node2) === JSON.stringify({value:2,children:[]}) ? "PASS" : "FAIL")
 console.log("Test 4: ", JSON.stringify(node3) === JSON.stringify({value:3,children:[{value:5,children:[]}]}) ? "PASS" : "FAIL")
 console.log("Test 5: ", JSON.stringify(node4) === JSON.stringify({value:4,children:[{value:6,children:[]},{value:7,children:[]}]}) ? "PASS" : "FAIL")
+console.log("========== TESTS FOR removeNode ==========")
+tree1.removeNode(node4, node7)
+console.log("Test 6: ", JSON.stringify(node4) === JSON.stringify({value:4,children:[{value:6,children:[]}]}) ? "PASS" : "FAIL")
+tree1.removeNode(rootNode, node3)
+console.log("Test 7: ", JSON.stringify(tree1.root) === JSON.stringify({value:1,children:[{value:2,children:[]},{value:4,children:[{value:6,children:[]}]}]}) ? "PASS" : "FAIL")
 
