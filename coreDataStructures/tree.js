@@ -19,8 +19,32 @@ class Tree {
         return childNodeIndex > -1 ? parentNode.children.splice(childNodeIndex, 1) : null
     }
 
-    depthFirstSearch(value) {
-        // ...
+    /*
+    value 5
+
+    ***dfs(1)
+    node = Node(1)
+                          x
+    node.children = [{2},{3},{4}]
+
+    **dfs(3)
+    node = Node(3)
+                      x
+    node.children = [{5}]
+
+
+                1
+            2   3   4
+                5   6 7
+
+    */
+    depthFirstSearch(value, node = this.root) {
+        if (node.value === value) return node
+        for (const childNode of node.children) {
+            const foundNode = this.depthFirstSearch(value, childNode)
+            if (foundNode) return foundNode
+        }
+        return null
     }
 
     breadthFirstSearch(value) {
@@ -36,14 +60,6 @@ class Tree {
         // ...
     }
 }
-
-/*
-
-            1
-        2   3   4
-            5   6 7
-
-*/
 
 // TEST CASES
 console.log("========== TESTS FOR insertNode ==========")
@@ -71,4 +87,9 @@ tree1.removeNode(node4, node7)
 console.log("Test 6: ", JSON.stringify(node4) === JSON.stringify({value:4,children:[{value:6,children:[]}]}) ? "PASS" : "FAIL")
 tree1.removeNode(rootNode, node3)
 console.log("Test 7: ", JSON.stringify(tree1.root) === JSON.stringify({value:1,children:[{value:2,children:[]},{value:4,children:[{value:6,children:[]}]}]}) ? "PASS" : "FAIL")
-
+console.log("========== TESTS FOR depthFirstSearch ==========")
+console.log("Test 8: ", JSON.stringify(tree1.depthFirstSearch(1)) === JSON.stringify({value:1,children:[{value:2,children:[]},{value:4,children:[{value:6,children:[]}]}]}) ? "PASS" : "FAIL")
+console.log("Test 9: ", JSON.stringify(tree1.depthFirstSearch(2)) === JSON.stringify({value:2,children:[]}) ? "PASS" : "FAIL")
+console.log("Test 10: ", JSON.stringify(tree1.depthFirstSearch(4)) === JSON.stringify({value:4,children:[{value:6,children:[]}]}) ? "PASS" : "FAIL")
+console.log("Test 11: ", JSON.stringify(tree1.depthFirstSearch(6)) === JSON.stringify({value:6,children:[]}) ? "PASS" : "FAIL")
+console.log("Test 12: ", JSON.stringify(tree1.depthFirstSearch(7)) === "null" ? "PASS" : "FAIL")
