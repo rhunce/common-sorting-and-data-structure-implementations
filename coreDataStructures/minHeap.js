@@ -40,24 +40,18 @@ class MinHeap {
 
     _trickleDown() {
         let currentIdx = 0
-        let smallerChildIdx = this._getSmallerChildIdx(this.#minHeap, currentIdx)
-        while (this.#minHeap[currentIdx] > this.#minHeap[smallerChildIdx]) {
-            this._swap(this.#minHeap, currentIdx, smallerChildIdx)
-            currentIdx = smallerChildIdx
-            smallerChildIdx = this._getSmallerChildIdx(this.#minHeap, currentIdx)
+        while ((2*currentIdx) + 1 < this.#minHeap.length) {
+            const leftIdx = (2*currentIdx) + 1
+            const rightIdx = (2*currentIdx) + 2
+            const minChildIdx = rightIdx < this.#minHeap.length && this.#minHeap[rightIdx] < this.#minHeap[leftIdx] ? rightIdx : leftIdx
+            if (this.#minHeap[currentIdx] > this.#minHeap[minChildIdx]) {
+                this._swap(this.#minHeap, currentIdx, minChildIdx)
+                currentIdx = minChildIdx
+            } else {
+                break
+            }
         }
         return this.getHeapCopy()
-    }
-
-    _getSmallerChildIdx(arr, idx) {
-        const leftChildIdx = (2*idx) + 1
-        const rightChildIdx = (2*idx) + 2
-        const leftChild = arr[leftChildIdx]
-        const rightChild = arr[rightChildIdx]
-        if (leftChild === undefined && rightChild === undefined) return null
-        if (leftChild !== undefined && rightChild === undefined) return leftChildIdx
-        if (leftChild === undefined && rightChild !== undefined) return rightChildIdx
-        return leftChild < rightChild ? leftChildIdx : rightChildIdx
     }
 
     _size() {
