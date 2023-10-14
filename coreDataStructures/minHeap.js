@@ -23,8 +23,8 @@ class MinHeap {
         while (this._trickleDown(arr, idx)) {
             continue
         }
-        const leftChildIdx = (2*idx) + 1
-        const rightChildIdx = (2*idx) + 2
+        const leftChildIdx = this._getLeftChildIndex(idx)
+        const rightChildIdx = this._getRightChildIndex(idx)
         if (leftChildIdx < arr.length) this.heapify(arr, leftChildIdx)
         if (rightChildIdx < arr.length) this.heapify(arr, rightChildIdx)
         return arr
@@ -40,23 +40,24 @@ class MinHeap {
 
     _bubbleUp() {
         let currentIdx = this._size() - 1
-        while (currentIdx > 0 && this.#minHeap[currentIdx] < this.#minHeap[Math.floor((currentIdx-1)/2)]) {
-            this._swap(this.#minHeap, currentIdx, Math.floor((currentIdx-1)/2))
-            currentIdx = Math.floor((currentIdx-1)/2)
+        while (this._hasParent(currentIdx) && this.#minHeap[currentIdx] < this._parent(this.#minHeap, currentIdx)) {
+            this._swap(this.#minHeap, currentIdx, this._getParentIndex(currentIdx))
+            currentIdx = this._getParentIndex(currentIdx)
         }
     }
 
     _trickleDown(arr, idx = 0) {
         let currentIdx = idx
         let trickled = false
-        while ((2*currentIdx) + 1 < arr.length) {
-            const leftIdx = (2*currentIdx) + 1
-            const rightIdx = (2*currentIdx) + 2
-            const minChildIdx = rightIdx < arr.length && arr[rightIdx] < arr[leftIdx] ? rightIdx : leftIdx
-            if (arr[currentIdx] > arr[minChildIdx]) {
-                this._swap(arr, currentIdx, minChildIdx)
+        while (this._hasLeftChild(arr, currentIdx)) {
+            let smallerChildIndex = this._getLeftChildIndex(currentIdx)
+            if (this._hasRightChild(arr, currentIdx) && this._rightChild(arr, currentIdx) < this._leftChild(arr, currentIdx)) {
+                smallerChildIndex = this._getRightChildIndex(currentIdx)
+            }
+            if (arr[currentIdx] > arr[smallerChildIndex]) {
+                this._swap(arr, currentIdx, smallerChildIndex)
                 trickled = true
-                currentIdx = minChildIdx
+                currentIdx = smallerChildIndex
             } else {
                 break
             }
@@ -72,6 +73,42 @@ class MinHeap {
         const temp = arr[idxOne]
         arr[idxOne] = arr[idxTwo]
         arr[idxTwo] = temp
+    }
+
+    _getLeftChildIndex(parentIndex) {
+        return (2 * parentIndex) + 1
+    }
+
+    _getRightChildIndex(parentIndex) {
+        return (2 * parentIndex) + 2
+    }
+
+    _getParentIndex(childIndex) {
+        return Math.floor((childIndex - 1) / 2)
+    }
+
+    _hasLeftChild(arr, index) {
+        return this._getLeftChildIndex(index) < arr.length
+    }
+
+    _hasRightChild(arr, index) {
+        return this._getRightChildIndex(index) < arr.length
+    }
+
+    _hasParent(index) {
+        return this._getParentIndex(index) >= 0
+    }
+
+    _leftChild(arr, index) {
+        return arr[this._getLeftChildIndex(index)]
+    }
+
+    _rightChild(arr, index) {
+        return arr[this._getRightChildIndex(index)]
+    }
+
+    _parent(arr, index) {
+        return arr[this._getParentIndex(index)]
     }
 }
 
