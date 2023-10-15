@@ -51,10 +51,11 @@ class BinarySearchTree {
         return values
     }
 
-    preOrderTraversal(node = this.root) {
-        // log current
-        // visit left
-        // visit right
+    preOrderTraversal(node = this.root, values = []) {
+        values.push(node.value)
+        if (node.left) this.preOrderTraversal(node.left, values)
+        if (node.right) this.preOrderTraversal(node.right, values)
+        return values
     }
 
     postOrderTraversal(node = this.root) {
@@ -90,4 +91,6 @@ console.log("Test 9: ", bST.root.right.right.right.value === 9 ? "PASS" : "FAIL"
 console.log("========== TESTS FOR inOrderTraversal ==========")
 console.log("10", JSON.stringify(bST.inOrderTraversal()) === JSON.stringify([1,2,3,4,5,6,7,8,9]) ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR preOrderTraversal ==========")
+console.log("11", JSON.stringify(bST.preOrderTraversal()) === JSON.stringify([5,3,2,1,4,6,8,7,9]) ? "PASS" : "FAIL")
+// console.log("11", JSON.stringify(bST.preOrderTraversal()))
 // console.log("========== TESTS FOR postOrderTraversal ==========")
