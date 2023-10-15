@@ -40,18 +40,18 @@ class BinarySearchTree {
         // ...
     }
 
-    getNode(value, node = this.root) {
-        if (node.value === value) return node
+    getNodeAndParent(value, node = this.root, parent = null) {
+        if (node.value === value) return { node, parent }
         if (value > node.value) {
             if (node.right) {
-                const foundNode = this.getNode(value, node.right)
+                const foundNode = this.getNodeAndParent(value, node.right, node)
                 if (foundNode) return foundNode
             } else {
                 return null
             }
         } else {
             if (node.left) {
-                const foundNode = this.getNode(value, node.left)
+                const foundNode = this.getNodeAndParent(value, node.left, node)
                 if (foundNode) return foundNode
             } else {
                 return null
@@ -112,12 +112,12 @@ console.log("Test 8: ", bST.root.right.right.left.value === 7 ? "PASS" : "FAIL")
 console.log("Test 9: ", bST.root.right.right.right.value === 9 ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR removeValue ==========")
 console.log("========== TESTS FOR getNode ==========")
-console.log("Test 11:", bST.getNode(5).value === 5 ? "PASS" : "FAIL")
-console.log("Test 12:", bST.getNode(4).value === 4 ? "PASS" : "FAIL")
-console.log("Test 13:", bST.getNode(8).value === 8 ? "PASS" : "FAIL")
-console.log("Test 14:", bST.getNode(1).value === 1 ? "PASS" : "FAIL")
-console.log("Test 15:", bST.getNode(7).value === 7 ? "PASS" : "FAIL")
-console.log("Test 16:", bST.getNode(9).value === 9 ? "PASS" : "FAIL")
+console.log("Test 11:", bST.getNodeAndParent(5).node.value === 5 ? "PASS" : "FAIL")
+console.log("Test 12:", bST.getNodeAndParent(4).node.value === 4 ? "PASS" : "FAIL")
+console.log("Test 13:", bST.getNodeAndParent(8).node.value === 8 ? "PASS" : "FAIL")
+console.log("Test 14:", bST.getNodeAndParent(1).node.value === 1 ? "PASS" : "FAIL")
+console.log("Test 15:", bST.getNodeAndParent(7).node.value === 7 ? "PASS" : "FAIL")
+console.log("Test 16:", bST.getNodeAndParent(9).node.value === 9 ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR depthFirstSearch ==========")
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
 console.log("========== TESTS FOR inOrderTraversal ==========")
