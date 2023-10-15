@@ -58,10 +58,11 @@ class BinarySearchTree {
         return values
     }
 
-    postOrderTraversal(node = this.root) {
-        // visit left
-        // visit right
-        // log current
+    postOrderTraversal(node = this.root, values = []) {
+        if (node.left) this.postOrderTraversal(node.left, values)
+        if (node.right) this.postOrderTraversal(node.right, values)
+        values.push(node.value)
+        return values
     }
 }
 
@@ -89,8 +90,8 @@ console.log("Test 9: ", bST.root.right.right.right.value === 9 ? "PASS" : "FAIL"
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
 // console.log("========== TESTS FOR depthFirstSearch ==========")
 console.log("========== TESTS FOR inOrderTraversal ==========")
-console.log("10", JSON.stringify(bST.inOrderTraversal()) === JSON.stringify([1,2,3,4,5,6,7,8,9]) ? "PASS" : "FAIL")
+console.log("Test 10: ", JSON.stringify(bST.inOrderTraversal()) === JSON.stringify([1,2,3,4,5,6,7,8,9]) ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR preOrderTraversal ==========")
-console.log("11", JSON.stringify(bST.preOrderTraversal()) === JSON.stringify([5,3,2,1,4,6,8,7,9]) ? "PASS" : "FAIL")
-// console.log("11", JSON.stringify(bST.preOrderTraversal()))
+console.log("Test 11: ", JSON.stringify(bST.preOrderTraversal()) === JSON.stringify([5,3,2,1,4,6,8,7,9]) ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR postOrderTraversal ==========")
+console.log("Test 12: ", JSON.stringify(bST.postOrderTraversal()) === JSON.stringify([1,2,4,3,7,9,8,6,5]) ? "PASS" : "FAIL")
