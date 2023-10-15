@@ -7,12 +7,16 @@ class Node {
 }
 
 class BinarySearchTree {
-    constructor(value) {
-        this.root = new Node(value)
+    constructor() {
+        this.root = null
     }
 
     insertValue(value) {
         const newNode = new Node(value)
+        if (!this.root) {
+            this.root = newNode
+            return this.root
+        }
         let currentNode = this.root
         while (currentNode) {
             if (value > currentNode.value) {
@@ -87,7 +91,8 @@ class BinarySearchTree {
 
 // TEST CASES
 console.log("========== TESTS FOR insertValue ==========")
-const bST = new BinarySearchTree(5)
+const bST = new BinarySearchTree()
+bST.insertValue(5)
 bST.insertValue(3)
 bST.insertValue(4)
 bST.insertValue(6)
