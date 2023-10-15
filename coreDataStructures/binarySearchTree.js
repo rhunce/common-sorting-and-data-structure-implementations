@@ -11,6 +11,14 @@ class BinarySearchTree {
         this.root = null
     }
 
+    static buildBST(values) {
+        const bST = new BinarySearchTree()
+        for (const value of values) {
+            bST.insertValue(value)
+        }
+        return bST
+    }
+
     insertValue(value) {
         const newNode = new Node(value)
         if (!this.root) {
@@ -37,7 +45,60 @@ class BinarySearchTree {
     }
 
     removeValue(value) {
-        // ...
+        const { parent, node } = this.getNodeAndParent(value)
+        if (this._hasNoChildren(node)) {
+            if (!parent) {
+                // TODO
+            } else if (parent.right === node) {
+                parent.right = null
+            } else {
+                parent.left = null
+            }
+        } else if (this._hasOneChild(node)) {
+            if (!parent) {
+                // TODO
+            } else if (parent.right === node) {
+                parent.right = node.left ? node.left : node.right
+            } else {
+                parent.left = node.left ? node.left : node.right
+            }
+        } else {
+            // has two children, maybe root (parent = null), maybe not (parent !== null)
+            const { parentNextHighestNode, nextHighestNode } = this._getNextHighestNode(node)
+            // *** TODO: Finish fixing this for removal tests (70, 20, 50)
+            console.log("parentNextHighestNode: ", parentNextHighestNode)
+            console.log("nextHighestNode: ", nextHighestNode)
+            if (nextHighestNode.right) {
+                if (parentNextHighestNode.right === nextHighestNode) {
+                    
+                } else {
+
+                }
+                parentNextHighestNode.left = nextHighestNode.right
+            }
+            // nextHighestNode must replace node
+            if (!parent) {
+                // root node
+                nextHighestNode.left = node.left
+                nextHighestNode.right = node.right
+                node.left = null
+                node.right = null
+                this.root = nextHighestNode
+            } else {
+                // not root node
+                nextHighestNode.left = node.left
+                nextHighestNode.right = node.right
+                node.left = null
+                node.right = null
+                // point parent from node to newHighestNode
+                if (parent.right === node) {
+                    parent.right = nextHighestNode
+                } else {
+                    parent.left = nextHighestNode
+                }
+            }
+        }
+        return this.root
     }
 
     getNodeAndParent(value, node = this.root, parent = null) {
@@ -75,6 +136,7 @@ class BinarySearchTree {
     }
 
     preOrderTraversal(node = this.root, values = []) {
+        // console.log("VALUES: ", values)
         values.push(node.value)
         if (node.left) this.preOrderTraversal(node.left, values)
         if (node.right) this.preOrderTraversal(node.right, values)
@@ -87,9 +149,32 @@ class BinarySearchTree {
         values.push(node.value)
         return values
     }
+
+    _hasNoChildren(node) {
+        return !node.left && !node.right
+    }
+
+    _hasTwoChildren(node) {
+        return node.left && node.right
+    }
+
+    _hasOneChild(node) {
+        return !this._hasNoChildren(node) && !this._hasTwoChildren(node)
+    }
+
+    _getNextHighestNode(node) {
+        let parentNextHighestNode = node
+        let nextHighestNode = node.right
+        while (nextHighestNode.left) {
+            parentNextHighestNode = nextHighestNode
+            nextHighestNode = nextHighestNode.left
+        }
+        return { parentNextHighestNode, nextHighestNode }
+    }
 }
 
 // TEST CASES
+/*
 console.log("========== TESTS FOR insertValue ==========")
 const bST = new BinarySearchTree()
 bST.insertValue(5)
@@ -110,7 +195,6 @@ console.log("Test 6: ", bST.root.left.left.left.value === 1 ? "PASS" : "FAIL")
 console.log("Test 7: ", bST.root.right.right.value === 8 ? "PASS" : "FAIL")
 console.log("Test 8: ", bST.root.right.right.left.value === 7 ? "PASS" : "FAIL")
 console.log("Test 9: ", bST.root.right.right.right.value === 9 ? "PASS" : "FAIL")
-// console.log("========== TESTS FOR removeValue ==========")
 console.log("========== TESTS FOR getNodeAndParent ==========")
 console.log("Test 11:", bST.getNodeAndParent(5).node.value === 5 ? "PASS" : "FAIL")
 console.log("Test 12:", bST.getNodeAndParent(4).node.value === 4 ? "PASS" : "FAIL")
@@ -118,11 +202,42 @@ console.log("Test 13:", bST.getNodeAndParent(8).node.value === 8 ? "PASS" : "FAI
 console.log("Test 14:", bST.getNodeAndParent(1).node.value === 1 ? "PASS" : "FAIL")
 console.log("Test 15:", bST.getNodeAndParent(7).node.value === 7 ? "PASS" : "FAIL")
 console.log("Test 16:", bST.getNodeAndParent(9).node.value === 9 ? "PASS" : "FAIL")
+console.log("========== TESTS FOR inOrderTraversal ==========")
+console.log("Test 17: ", JSON.stringify(bST.inOrderTraversal()) === JSON.stringify([1,2,3,4,5,6,7,8,9]) ? "PASS" : "FAIL")
+console.log("========== TESTS FOR preOrderTraversal ==========")
+console.log("Test 18: ", JSON.stringify(bST.preOrderTraversal()) === JSON.stringify([5,3,2,1,4,6,8,7,9]) ? "PASS" : "FAIL")
+console.log("========== TESTS FOR postOrderTraversal ==========")
+console.log("Test 19: ", JSON.stringify(bST.postOrderTraversal()) === JSON.stringify([1,2,4,3,7,9,8,6,5]) ? "PASS" : "FAIL")
+*/
+console.log("========== TESTS FOR removeValue ==========")
+const bST2 = BinarySearchTree.buildBST([10,50,20,70,15,30,60,80,65])
+// console.log(bST2.root.value === 10)
+// console.log(bST2.root.right.value === 50)
+// console.log(bST2.root.right.left.value === 20)
+// console.log(bST2.root.right.left.left.value === 15)
+// console.log(bST2.root.right.left.right.value === 30)
+// console.log(bST2.root.right.right.value === 70)
+// console.log(bST2.root.right.right.left.value === 60)
+// console.log(bST2.root.right.right.left.right.value === 65)
+// console.log(bST2.root.right.right.right.value === 80)
+// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,60,65,80]))
+bST2.removeValue(15)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,30,70,60,65,80]))
+bST2.insertValue(15)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,60,65,80]))
+bST2.removeValue(60)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,65,80]))
+bST2.removeValue(65)
+bST2.insertValue(60)
+bST2.insertValue(65)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,60,65,80]))
+bST2.removeValue(70)
+// ... add it back
+// bST2.removeValue(20)
+// ... add it back
+// bST2.removeValue(50)
+// ... add it back
+// bST2.removeValue(10) // how to deal with root with one child or no children?
+// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,80,60,65]))
 // console.log("========== TESTS FOR depthFirstSearch ==========")
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
-console.log("========== TESTS FOR inOrderTraversal ==========")
-console.log("Test 10: ", JSON.stringify(bST.inOrderTraversal()) === JSON.stringify([1,2,3,4,5,6,7,8,9]) ? "PASS" : "FAIL")
-console.log("========== TESTS FOR preOrderTraversal ==========")
-console.log("Test 11: ", JSON.stringify(bST.preOrderTraversal()) === JSON.stringify([5,3,2,1,4,6,8,7,9]) ? "PASS" : "FAIL")
-console.log("========== TESTS FOR postOrderTraversal ==========")
-console.log("Test 12: ", JSON.stringify(bST.postOrderTraversal()) === JSON.stringify([1,2,4,3,7,9,8,6,5]) ? "PASS" : "FAIL")
