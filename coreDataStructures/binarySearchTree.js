@@ -36,11 +36,30 @@ class BinarySearchTree {
         // ...
     }
 
-    breadthFirstSearch(value) {
-        // ...
+    getNode(value, node = this.root) {
+        if (node.value === value) return node
+        if (value > node.value) {
+            if (node.right) {
+                const foundNode = this.getNode(value, node.right)
+                if (foundNode) return foundNode
+            } else {
+                return null
+            }
+        } else {
+            if (node.left) {
+                const foundNode = this.getNode(value, node.left)
+                if (foundNode) return foundNode
+            } else {
+                return null
+            }
+        }
     }
 
     depthFirstSearch(value) {
+        // ...
+    }
+
+    breadthFirstSearch(value) {
         // ...
     }
 
@@ -87,8 +106,15 @@ console.log("Test 7: ", bST.root.right.right.value === 8 ? "PASS" : "FAIL")
 console.log("Test 8: ", bST.root.right.right.left.value === 7 ? "PASS" : "FAIL")
 console.log("Test 9: ", bST.root.right.right.right.value === 9 ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR removeValue ==========")
-// console.log("========== TESTS FOR breadthFirstSearch ==========")
+console.log("========== TESTS FOR getNode ==========")
+console.log("Test 11:", bST.getNode(5).value === 5 ? "PASS" : "FAIL")
+console.log("Test 12:", bST.getNode(4).value === 4 ? "PASS" : "FAIL")
+console.log("Test 13:", bST.getNode(8).value === 8 ? "PASS" : "FAIL")
+console.log("Test 14:", bST.getNode(1).value === 1 ? "PASS" : "FAIL")
+console.log("Test 15:", bST.getNode(7).value === 7 ? "PASS" : "FAIL")
+console.log("Test 16:", bST.getNode(9).value === 9 ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR depthFirstSearch ==========")
+// console.log("========== TESTS FOR breadthFirstSearch ==========")
 console.log("========== TESTS FOR inOrderTraversal ==========")
 console.log("Test 10: ", JSON.stringify(bST.inOrderTraversal()) === JSON.stringify([1,2,3,4,5,6,7,8,9]) ? "PASS" : "FAIL")
 console.log("========== TESTS FOR preOrderTraversal ==========")
