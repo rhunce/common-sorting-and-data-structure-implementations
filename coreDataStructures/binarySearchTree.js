@@ -66,42 +66,21 @@ class BinarySearchTree {
             } 
             parent.left = node.left ? node.left : node.right
         } else {
-            // has two children, maybe root (parent = null), maybe not (parent !== null)
-            const { parentNextHighestNode, nextHighestNode } = this._getNextHighestNode(node)
-            // *** TODO: Finish fixing this for removal tests (70, 20, 50)
-            console.log("parentNextHighestNode: ", parentNextHighestNode)
-            console.log("nextHighestNode: ", nextHighestNode)
-            if (nextHighestNode.right) {
-                if (parentNextHighestNode.right === nextHighestNode) {
-                    
-                } else {
-
-                }
-                parentNextHighestNode.left = nextHighestNode.right
-            }
-            // nextHighestNode must replace node
+            const { parentNextHighestNode, nextHighestNode } = this._getNextHighestNodeAndParent(node)
             if (!parent) {
-                // root node
-                nextHighestNode.left = node.left
-                nextHighestNode.right = node.right
-                node.left = null
-                node.right = null
-                this.root = nextHighestNode
-            } else {
-                // not root node
-                nextHighestNode.left = node.left
-                nextHighestNode.right = node.right
-                node.left = null
-                node.right = null
-                // point parent from node to newHighestNode
-                if (parent.right === node) {
-                    parent.right = nextHighestNode
-                } else {
-                    parent.left = nextHighestNode
-                }
+                this.root = null
+                return
             }
+            node.value = nextHighestNode.value
+            if (parentNextHighestNode === node) {
+                node.right = nextHighestNode.right
+                nextHighestNode.right = null
+                return
+            }
+            parentNextHighestNode.left = nextHighestNode.right
+            nextHighestNode.right = null
+            return
         }
-        return this.root
     }
 
     getNodeAndParent(value, node = this.root, parent = null) {
@@ -139,7 +118,6 @@ class BinarySearchTree {
     }
 
     preOrderTraversal(node = this.root, values = []) {
-        // console.log("VALUES: ", values)
         values.push(node.value)
         if (node.left) this.preOrderTraversal(node.left, values)
         if (node.right) this.preOrderTraversal(node.right, values)
@@ -165,7 +143,7 @@ class BinarySearchTree {
         return !this._hasNoChildren(node) && !this._hasTwoChildren(node)
     }
 
-    _getNextHighestNode(node) {
+    _getNextHighestNodeAndParent(node) {
         let parentNextHighestNode = node
         let nextHighestNode = node.right
         while (nextHighestNode.left) {
@@ -177,7 +155,6 @@ class BinarySearchTree {
 }
 
 // TEST CASES
-/*
 console.log("========== TESTS FOR insertValue ==========")
 const bST = new BinarySearchTree()
 bST.insertValue(5)
@@ -211,34 +188,47 @@ console.log("========== TESTS FOR preOrderTraversal ==========")
 console.log("Test 18: ", JSON.stringify(bST.preOrderTraversal()) === JSON.stringify([5,3,2,1,4,6,8,7,9]) ? "PASS" : "FAIL")
 console.log("========== TESTS FOR postOrderTraversal ==========")
 console.log("Test 19: ", JSON.stringify(bST.postOrderTraversal()) === JSON.stringify([1,2,4,3,7,9,8,6,5]) ? "PASS" : "FAIL")
-*/
 console.log("========== TESTS FOR removeValue ==========")
-// const bST2 = BinarySearchTree.buildBST([1,0,2,3])
-// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,0,2,3]))
-// bST2.removeValue(3)
-// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,0,2]))
-// bST2.removeValue(0)
-// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,2]))
-// bST2.removeValue(2)
-// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1]))
-// bST2.removeValue(1)
-// console.log(bST2.root === null)
+const bST2 = BinarySearchTree.buildBST([1,0,2,3])
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,0,2,3]) ? "PASS" : "FAIL")
+bST2.removeValue(3)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,0,2]) ? "PASS" : "FAIL")
+bST2.removeValue(0)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,2]) ? "PASS" : "FAIL")
+bST2.removeValue(2)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1]) ? "PASS" : "FAIL")
+bST2.removeValue(1)
+console.log(bST2.root === null ? "PASS" : "FAIL")
 const bST3 = BinarySearchTree.buildBST([5,4,3])
 bST3.removeValue(4)
-console.log(JSON.stringify(bST3.preOrderTraversal()) === JSON.stringify([5,3]))
+console.log(JSON.stringify(bST3.preOrderTraversal()) === JSON.stringify([5,3]) ? "PASS" : "FAIL")
 const bST4 = BinarySearchTree.buildBST([5,3,4])
 bST4.removeValue(3)
-console.log(JSON.stringify(bST4.preOrderTraversal()) === JSON.stringify([5,4]))
+console.log(JSON.stringify(bST4.preOrderTraversal()) === JSON.stringify([5,4]) ? "PASS" : "FAIL")
 bST4.removeValue(5)
-console.log(JSON.stringify(bST4.preOrderTraversal()) === JSON.stringify([4]))
+console.log(JSON.stringify(bST4.preOrderTraversal()) === JSON.stringify([4]) ? "PASS" : "FAIL")
 const bST5 = BinarySearchTree.buildBST([5,6,7])
 bST5.removeValue(6)
-console.log(JSON.stringify(bST5.preOrderTraversal()) === JSON.stringify([5,7]))
+console.log(JSON.stringify(bST5.preOrderTraversal()) === JSON.stringify([5,7]) ? "PASS" : "FAIL")
 const bST6 = BinarySearchTree.buildBST([5,7,6])
 bST6.removeValue(7)
-console.log(JSON.stringify(bST6.preOrderTraversal()) === JSON.stringify([5,6]))
+console.log(JSON.stringify(bST6.preOrderTraversal()) === JSON.stringify([5,6]) ? "PASS" : "FAIL")
 bST6.removeValue(5)
-console.log(JSON.stringify(bST6.preOrderTraversal()) === JSON.stringify([6]))
-
+console.log(JSON.stringify(bST6.preOrderTraversal()) === JSON.stringify([6]) ? "PASS" : "FAIL")
+const bST7 = BinarySearchTree.buildBST([70,60,55,65,66,64,63])
+console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,60,55,65,64,63,66]) ? "PASS" : "FAIL")
+bST7.removeValue(60)
+console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,55,65,64,66]) ? "PASS" : "FAIL")
+bST7.insertValue(68)
+bST7.insertValue(67)
+bST7.insertValue(69)
+console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,55,65,64,66,68,67,69]) ? "PASS" : "FAIL")
+bST7.removeValue(65)
+console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,55,66,64,68,67,69]) ? "PASS" : "FAIL")
+bST7.insertValue(54)
+bST7.insertValue(56)
+console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,55,54,56,66,64,68,67,69]) ? "PASS" : "FAIL")
+bST7.removeValue(55)
+console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,56,54,66,64,68,67,69]) ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR depthFirstSearch ==========")
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
