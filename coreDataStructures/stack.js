@@ -1,7 +1,7 @@
 class Stack {
     #stack
     constructor() {
-        // can use linked list here (that includes a pointer to tail)
+        // can use a doubly linked list here (that includes a pointer to tail)
         // for more efficient memory allocation
         this.#stack = []
     }
