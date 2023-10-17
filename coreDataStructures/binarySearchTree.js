@@ -11,6 +11,8 @@ class BinarySearchTree {
         this.root = null
     }
 
+    // O(n) time | O(n) space
+    // n = number of values
     static buildBST(values) {
         const bST = new BinarySearchTree()
         for (const value of values) {
@@ -19,6 +21,8 @@ class BinarySearchTree {
         return bST
     }
 
+    // O(log n) time | O(1) space
+    // n = number of nodes in BST
     insertValue(value) {
         const newNode = new Node(value)
         if (!this.root) {
@@ -44,6 +48,9 @@ class BinarySearchTree {
         return this.root
     }
 
+    // O(log n) time | O(log n) space
+    // n = number of nodes in BST
+    // log n space due to call stack of getNodeAndParent method
     removeValue(value) {
         const { parent, node } = this.getNodeAndParent(value)
         if (this._hasNoChildren(node)) {
@@ -83,6 +90,9 @@ class BinarySearchTree {
         }
     }
 
+    // O(log n) time | O(log n) space
+    // n = number of nodes in BST
+    // log n space due to call stack
     getNodeAndParent(value, node = this.root, parent = null) {
         if (node.value === value) return { node, parent }
         if (value > node.value) {
@@ -102,6 +112,8 @@ class BinarySearchTree {
         }
     }
 
+    // O(n) time | O(log n) space
+    // n = number of nodes in BST
     depthFirstSearchRecursive(value, node = this.root) {
         if (node.value === value) return node
         let targetNode
@@ -116,6 +128,8 @@ class BinarySearchTree {
         return null
     }
 
+    // O(n) time | O(log n) space
+    // n = number of nodes in BST
     depthFirstSearchIterative(value) {
         if (!this.root) return null
         // TODO: Use an actual stack here
@@ -129,6 +143,8 @@ class BinarySearchTree {
         return null
     }
 
+    // O(n) time | O(n) space
+    // n = number of nodes in BST
     breadthFirstSearch(value) {
         if (!this.root) return null
         // TODO: Use an actual queue here
@@ -142,6 +158,8 @@ class BinarySearchTree {
         return null
     }
 
+    // O(n) time | O(log n) space
+    // n = number of nodes in BST
     inOrderTraversal(node = this.root, values = []) {
         if (node.left) this.inOrderTraversal(node.left, values)
         values.push(node.value)
@@ -149,6 +167,8 @@ class BinarySearchTree {
         return values
     }
 
+    // O(n) time | O(log n) space
+    // n = number of nodes in BST
     preOrderTraversal(node = this.root, values = []) {
         values.push(node.value)
         if (node.left) this.preOrderTraversal(node.left, values)
@@ -156,6 +176,8 @@ class BinarySearchTree {
         return values
     }
 
+    // O(n) time | O(log n) space
+    // n = number of nodes in BST
     postOrderTraversal(node = this.root, values = []) {
         if (node.left) this.postOrderTraversal(node.left, values)
         if (node.right) this.postOrderTraversal(node.right, values)
@@ -163,18 +185,23 @@ class BinarySearchTree {
         return values
     }
 
+    // O(1) time | O(1) space
     _hasNoChildren(node) {
         return !node.left && !node.right
     }
 
+    // O(1) time | O(1) space
     _hasTwoChildren(node) {
         return node.left && node.right
     }
 
+    // O(1) time | O(1) space
     _hasOneChild(node) {
         return !this._hasNoChildren(node) && !this._hasTwoChildren(node)
     }
 
+    // O(log n) time | O(1) space
+    // n = number of nodes in BST
     _getNextHighestNodeAndParent(node) {
         let parentNextHighestNode = node
         let nextHighestNode = node.right
