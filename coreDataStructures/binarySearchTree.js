@@ -48,20 +48,20 @@ class BinarySearchTree {
         const { parent, node } = this.getNodeAndParent(value)
         if (this._hasNoChildren(node)) {
             if (!parent) {
-                // TODO
-            } else if (parent.right === node) {
-                parent.right = null
-            } else {
-                parent.left = null
+                this.root = null
+                return
             }
+            parent.right === node ? parent.right = null : parent.left = null
         } else if (this._hasOneChild(node)) {
             if (!parent) {
                 // TODO
-            } else if (parent.right === node) {
+                return
+            } 
+            if (parent.right === node) {
                 parent.right = node.left ? node.left : node.right
-            } else {
-                parent.left = node.left ? node.left : node.right
-            }
+                return
+            } 
+            parent.left = node.left ? node.left : node.right
         } else {
             // has two children, maybe root (parent = null), maybe not (parent !== null)
             const { parentNextHighestNode, nextHighestNode } = this._getNextHighestNode(node)
@@ -210,34 +210,16 @@ console.log("========== TESTS FOR postOrderTraversal ==========")
 console.log("Test 19: ", JSON.stringify(bST.postOrderTraversal()) === JSON.stringify([1,2,4,3,7,9,8,6,5]) ? "PASS" : "FAIL")
 */
 console.log("========== TESTS FOR removeValue ==========")
-const bST2 = BinarySearchTree.buildBST([10,50,20,70,15,30,60,80,65])
-// console.log(bST2.root.value === 10)
-// console.log(bST2.root.right.value === 50)
-// console.log(bST2.root.right.left.value === 20)
-// console.log(bST2.root.right.left.left.value === 15)
-// console.log(bST2.root.right.left.right.value === 30)
-// console.log(bST2.root.right.right.value === 70)
-// console.log(bST2.root.right.right.left.value === 60)
-// console.log(bST2.root.right.right.left.right.value === 65)
-// console.log(bST2.root.right.right.right.value === 80)
-// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,60,65,80]))
-bST2.removeValue(15)
-console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,30,70,60,65,80]))
-bST2.insertValue(15)
-console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,60,65,80]))
-bST2.removeValue(60)
-console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,65,80]))
-bST2.removeValue(65)
-bST2.insertValue(60)
-bST2.insertValue(65)
-console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,70,60,65,80]))
-bST2.removeValue(70)
-// ... add it back
-// bST2.removeValue(20)
-// ... add it back
-// bST2.removeValue(50)
-// ... add it back
-// bST2.removeValue(10) // how to deal with root with one child or no children?
-// console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([10,50,20,15,30,80,60,65]))
+const bST2 = BinarySearchTree.buildBST([1,0,2,3])
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,0,2,3]))
+bST2.removeValue(3)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,0,2]))
+bST2.removeValue(0)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1,2]))
+bST2.removeValue(2)
+console.log(JSON.stringify(bST2.preOrderTraversal()) === JSON.stringify([1]))
+bST2.removeValue(1)
+console.log(bST2.root === null)
+
 // console.log("========== TESTS FOR depthFirstSearch ==========")
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
