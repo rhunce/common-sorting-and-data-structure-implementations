@@ -117,7 +117,16 @@ class BinarySearchTree {
     }
 
     depthFirstSearchIterative(value) {
-        // ...
+        if (!this.root) return null
+        // TODO: Use an actual stack here
+        const stack = [this.root]
+        while (stack.length) {
+            const currentNode = stack.pop()
+            if (currentNode.value === value) return currentNode
+            if (currentNode.right) stack.push(currentNode.right)
+            if (currentNode.left) stack.push(currentNode.left)
+        }
+        return null
     }
 
     breadthFirstSearch(value) {
@@ -246,7 +255,7 @@ console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,5
 bST7.removeValue(55)
 console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,56,54,66,64,68,67,69]) ? "PASS" : "FAIL")
 */
-console.log("========== TESTS FOR depthFirstSearchRecursive ==========")
+// console.log("========== TESTS FOR depthFirstSearchRecursive ==========")
 const bST8 = BinarySearchTree.buildBST([10,5,3,2,4,7,6,8,15,12,11,13,17,16,18])
 // const node7 = bST8.depthFirstSearchRecursive(7)
 // console.log(node7.value === 7 ? "PASS" : "FAIL")
@@ -258,5 +267,15 @@ const bST8 = BinarySearchTree.buildBST([10,5,3,2,4,7,6,8,15,12,11,13,17,16,18])
 // console.log(node17.value === 17 ? "PASS" : "FAIL")
 // const node10 = bST8.depthFirstSearchRecursive(10) // should return Node(17) --> has left: Node(16), right: Node(18)
 // console.log(node10.value === 10 ? "PASS" : "FAIL")
-console.log("========== TESTS FOR depthFirstSearchIterative ==========")
+// console.log("========== TESTS FOR depthFirstSearchIterative ==========")
+// const node7 = bST8.depthFirstSearchIterative(7)
+// console.log(node7.value === 7 ? "PASS" : "FAIL")
+// const node18 = bST8.depthFirstSearchIterative(18)
+// console.log(node18.value === 18 ? "PASS" : "FAIL")
+// const node20 = bST8.depthFirstSearchIterative(20)
+// console.log(node20 === null ? "PASS" : "FAIL")
+// const node17 = bST8.depthFirstSearchIterative(17) // should return Node(17) --> has left: Node(16), right: Node(18)
+// console.log(node17.value === 17 ? "PASS" : "FAIL")
+// const node10 = bST8.depthFirstSearchIterative(10) // should return Node(17) --> has left: Node(16), right: Node(18)
+// console.log(node10.value === 10 ? "PASS" : "FAIL")
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
