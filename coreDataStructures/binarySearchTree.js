@@ -102,7 +102,21 @@ class BinarySearchTree {
         }
     }
 
-    depthFirstSearch(value) {
+    depthFirstSearchRecursive(value, node = this.root) {
+        if (node.value === value) return node
+        let targetNode
+        if (node.left) {
+            targetNode = this.depthFirstSearchRecursive(value, node.left)
+            if (targetNode) return targetNode
+        }
+        if (node.right) {
+            targetNode = this.depthFirstSearchRecursive(value, node.right)
+            if (targetNode) return targetNode
+        }
+        return null
+    }
+
+    depthFirstSearchIterative(value) {
         // ...
     }
 
@@ -155,6 +169,7 @@ class BinarySearchTree {
 }
 
 // TEST CASES
+/*
 console.log("========== TESTS FOR insertValue ==========")
 const bST = new BinarySearchTree()
 bST.insertValue(5)
@@ -230,5 +245,18 @@ bST7.insertValue(56)
 console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,55,54,56,66,64,68,67,69]) ? "PASS" : "FAIL")
 bST7.removeValue(55)
 console.log(JSON.stringify(bST7.preOrderTraversal()) === JSON.stringify([70,63,56,54,66,64,68,67,69]) ? "PASS" : "FAIL")
-// console.log("========== TESTS FOR depthFirstSearch ==========")
+*/
+console.log("========== TESTS FOR depthFirstSearchRecursive ==========")
+const bST8 = BinarySearchTree.buildBST([10,5,3,2,4,7,6,8,15,12,11,13,17,16,18])
+// const node7 = bST8.depthFirstSearchRecursive(7)
+// console.log(node7.value === 7 ? "PASS" : "FAIL")
+// const node18 = bST8.depthFirstSearchRecursive(18)
+// console.log(node18.value === 18 ? "PASS" : "FAIL")
+// const node20 = bST8.depthFirstSearchRecursive(20)
+// console.log(node20 === null ? "PASS" : "FAIL")
+// const node17 = bST8.depthFirstSearchRecursive(17) // should return Node(17) --> has left: Node(16), right: Node(18)
+// console.log(node17.value === 17 ? "PASS" : "FAIL")
+// const node10 = bST8.depthFirstSearchRecursive(10) // should return Node(17) --> has left: Node(16), right: Node(18)
+// console.log(node10.value === 10 ? "PASS" : "FAIL")
+console.log("========== TESTS FOR depthFirstSearchIterative ==========")
 // console.log("========== TESTS FOR breadthFirstSearch ==========")
