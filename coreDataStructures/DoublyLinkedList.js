@@ -97,7 +97,16 @@ class DoublyLinkedList {
     }
 
     removeNodeAtPosition(position) {
-        // ...
+        const nodeToRemove = this._getNodeAtPosition(position)
+        if (!nodeToRemove) return null
+        if (position === 1) return this.removeHead()
+        if (position === this.size) return this.removeTail()
+        nodeToRemove.prev.next = nodeToRemove.next
+        nodeToRemove.next.prev = nodeToRemove.prev
+        nodeToRemove.prev = null
+        nodeToRemove.next = null
+        this.size--
+        return this.head
     }
 
     getDoublyLinkedListValues() {
@@ -237,3 +246,18 @@ dLL3.removeTail()
 console.log("Test 42: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([200,300,400]) ? "PASS" : "FAIL")
 console.log("Test 43: ", dLL3.tail.value === 400 ? "PASS" : "FAIL")
 console.log("Test 44: ", dLL3.size === 3 ? "PASS" : "FAIL")
+console.log("========== TESTS FOR removeNodeAtPosition ==========")
+const dLL4 = DoublyLinkedList.createFromValues([1,2,3,4,5])
+console.log("Test 45: ", dLL4.size === 5 ? "PASS" : "FAIL")
+console.log("Test 46: ", JSON.stringify(dLL4.getDoublyLinkedListValues()) === JSON.stringify([1,2,3,4,5]) ? "PASS" : "FAIL")
+dLL4.removeNodeAtPosition(3)
+console.log("Test 47: ", dLL4.size === 4 ? "PASS" : "FAIL")
+console.log("Test 48: ", JSON.stringify(dLL4.getDoublyLinkedListValues()) === JSON.stringify([1,2,4,5]) ? "PASS" : "FAIL")
+dLL4.removeNodeAtPosition(1)
+console.log("Test 47: ", dLL4.size === 3 ? "PASS" : "FAIL")
+console.log("Test 48: ", JSON.stringify(dLL4.getDoublyLinkedListValues()) === JSON.stringify([2,4,5]) ? "PASS" : "FAIL")
+dLL4.removeNodeAtPosition(dLL4.size)
+console.log("Test 47: ", dLL4.size === 2 ? "PASS" : "FAIL")
+console.log("Test 48: ", JSON.stringify(dLL4.getDoublyLinkedListValues()) === JSON.stringify([2,4]) ? "PASS" : "FAIL")
+console.log("Test 49: ", dLL4.removeNodeAtPosition(0) === null ? "PASS" : "FAIL")
+console.log("Test 50: ", dLL4.removeNodeAtPosition(dLL4.size + 1) === null ? "PASS" : "FAIL")
