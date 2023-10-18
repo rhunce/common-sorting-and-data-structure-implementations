@@ -15,7 +15,11 @@ class DoublyLinkedList {
 
     // Creates a Doubly Linked List from array of values
     static createFromValues(values) {
-        // ...
+        const dLL = new DoublyLinkedList()
+        for (const value of values) {
+            dLL.insertAtTail(value)
+        }
+        return dLL
     }
 
     insertAtHead(value) {
@@ -168,3 +172,16 @@ dLL1.insertAtPosition(0, dLL1.size + 1)
 console.log("Test 18: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([5,4,3.5,3,2.5,2,1.5,1,0]) ? "PASS" : "FAIL")
 console.log("Test 19: ", dLL1.insertAtPosition(-1, 0) === null ? "PASS" : "FAIL")
 console.log("Test 20: ", dLL1.insertAtPosition(-1, dLL1.size + 2) === null ? "PASS" : "FAIL")
+console.log("========== TESTS FOR createFromValues ==========")
+const dLL3 = DoublyLinkedList.createFromValues([1,2,3,4,5])
+console.log("Test 21: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([1,2,3,4,5]) ? "PASS" : "FAIL")
+console.log("Test 22: ", dLL3.head.value === 1 ? "PASS" : "FAIL")
+console.log("Test 23: ", dLL3.tail.value === 5 ? "PASS" : "FAIL")
+console.log("Test 24: ", dLL3.head.next.value === 2 ? "PASS" : "FAIL")
+console.log("Test 25: ", dLL3.head.next.next.value === 3 ? "PASS" : "FAIL")
+console.log("Test 26: ", dLL3.head.next.next.next.value === 4 ? "PASS" : "FAIL")
+console.log("Test 27: ", dLL3.head.next.next.next.next.value === 5 ? "PASS" : "FAIL")
+console.log("Test 28: ", dLL3.head.next.next.next.next.prev.value === 4 ? "PASS" : "FAIL")
+console.log("Test 29: ", dLL3.head.next.next.next.next.prev.prev.value === 3 ? "PASS" : "FAIL")
+console.log("Test 30: ", dLL3.head.next.next.next.next.prev.prev.prev.value === 2 ? "PASS" : "FAIL")
+console.log("Test 31: ", dLL3.head.next.next.next.next.prev.prev.prev.prev.value === 1 ? "PASS" : "FAIL")
