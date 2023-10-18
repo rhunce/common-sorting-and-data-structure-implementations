@@ -6,7 +6,7 @@ class Node {
     }
 }
 
-class DoublyLinkedList {
+export default class DoublyLinkedList {
     constructor() {
         this.head = null
         this.tail = null
