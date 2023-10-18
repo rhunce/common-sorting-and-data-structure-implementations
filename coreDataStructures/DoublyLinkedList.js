@@ -31,8 +31,7 @@ class DoublyLinkedList {
     }
 
     insertAtPosition(value, position) {
-        position = parseInt(position)
-        if (position < 1 || position - this.size > 1) return null
+        if (!this._positionValid(position)) return null
         const nodeToInsert = new Node(value)
 
         // Empty Doubly Linked List
@@ -76,7 +75,9 @@ class DoublyLinkedList {
     }
 
     updateValueAtPosition(newValue, position) {
-        // ...
+        const nodeToUpdate = this._getNodeAtPosition(position)
+        nodeToUpdate.value = newValue
+        return nodeToUpdate
     }
 
     removeHead() {
@@ -132,6 +133,23 @@ class DoublyLinkedList {
 
     _positionAfterTail() {
         return this.size + 1
+    }
+
+    _getNodeAtPosition(position) {
+        if (!this._positionValid(position)) return null
+        let currentNode = this.head
+        let currentPosition = 1
+        while (currentPosition !== position) {
+            currentNode = currentNode.next
+            currentPosition++
+        }
+        return currentNode
+    }
+
+    _positionValid(position) {
+        const positionIsInt = parseInt(position) === position
+        if (!positionIsInt || position < 1 || position - this.size > 1) return false
+        return true
     }
 }
 
@@ -194,3 +212,10 @@ console.log("========== TESTS FOR updateTail ==========")
 dLL3.updateTail(500)
 console.log("Test 34: ", dLL3.tail.value === 500 ? "PASS" : "FAIL")
 console.log("Test 35: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([100,2,3,4,500]) ? "PASS" : "FAIL")
+console.log("========== TESTS FOR updateValueAtPosition ==========")
+dLL3.updateValueAtPosition(200, 2)
+console.log("Test 36: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([100,200,3,4,500]) ? "PASS" : "FAIL")
+dLL3.updateValueAtPosition(300, 3)
+console.log("Test 37: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([100,200,300,4,500]) ? "PASS" : "FAIL")
+dLL3.updateValueAtPosition(400, 4)
+console.log("Test 38: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([100,200,300,400,500]) ? "PASS" : "FAIL")
