@@ -6,48 +6,58 @@ class ArrayList {
         this.#count = 0
     }
 
+    // O(1) time, amortizing | O(1) space
     append(item) {
-        if (this.#count === this.#items.length) {
+        if (this.size() === this.capacity()) {
             console.log(`Current size is ${this.#count}. Resizing to ${this.#count * 2}.`)
-            const bigger = new Array(this.#count * 2)
-            for (let i = 0; i < this.#items.length; i++) {
-                bigger[i] = this.#items[i]
-            }
-            this.#items = bigger
+            this._doubleArraySize()
         }
         this.#items[this.#count] = item
         this.#count++
     }
 
+    // O(1) time | O(1) space
     set(index, item) {
         const outOfRange = this._returnErrorIfOutOfRange(index)
-        if (!!outOfRange) {
-            return outOfRange
-        }
+        if (outOfRange) return outOfRange
         this.#items[index] = item
         return this.#items[index]
     }
 
+    // O(1) time | O(1) space
     get(index) {
         const outOfRange = this._returnErrorIfOutOfRange(index)
-        if (!!outOfRange) {
-            return outOfRange
-        }
+        if (outOfRange) return outOfRange
         return this.#items[index]
     }
 
+    // O(n) time | O(n) space
+    // n = length of current ArrayList
     getCopyOfItems() {
         return this.#items.slice(0)
     }
 
+    // O(1) time | O(1) space
     size() {
         return this.#count
     }
 
+    // O(1) time | O(1) space
     capacity() {
         return this.#items.length
     }
 
+    // O(n) time | O(n) space
+    // n = length of current ArrayList
+    _doubleArraySize() {
+        const bigger = new Array(this.#count * 2)
+        for (let i = 0; i < this.capacity(); i++) {
+            bigger[i] = this.#items[i]
+        }
+        this.#items = bigger
+    }
+
+    // O(1) time | O(1) space
     _returnErrorIfOutOfRange(index) {
         if (index < 0 || index > this.#count) {
             return "Index out of range"
@@ -63,23 +73,23 @@ arrayList.append("B")
 arrayList.append("C")
 arrayList.append("D")
 arrayList.append("E")
-console.log("Should return ['A', 'B', 'C', 'D', 'E']: ", arrayList.getCopyOfItems())
+console.log("Test 1: ", JSON.stringify(arrayList.getCopyOfItems()) === JSON.stringify(["A","B","C","D","E"]) ? "PASS" : "FAIL")
 console.log("========== TESTS FOR get ==========")
-console.log("Should return 'A': ", arrayList.get(0))
-console.log("Should return 'B': ", arrayList.get(1))
-console.log("Should return 'C': ", arrayList.get(2))
-console.log("Should return 'D': ", arrayList.get(3))
-console.log("Should return 'E': ", arrayList.get(4))
+console.log("Test 2: ", arrayList.get(0) === "A" ? "PASS" : "FAIL")
+console.log("Test 3: ", arrayList.get(1) === "B" ? "PASS" : "FAIL")
+console.log("Test 4: ", arrayList.get(2) === "C" ? "PASS" : "FAIL")
+console.log("Test 5: ", arrayList.get(3) === "D" ? "PASS" : "FAIL")
+console.log("Test 6: ", arrayList.get(4) === "E" ? "PASS" : "FAIL")
 console.log("========== TESTS FOR set ==========")
-console.log("Should return 'a': ", arrayList.set(0, "a"))
-console.log("Should return 'b': ", arrayList.set(1, "b"))
-console.log("Should return 'c': ", arrayList.set(2, "c"))
-console.log("Should return 'd': ", arrayList.set(3, "d"))
-console.log("Should return 'e': ", arrayList.set(4, "e"))
-console.log("Should return ['a', 'b', 'c', 'd', 'e']: ", arrayList.getCopyOfItems())
+console.log("Test 7: ", arrayList.set(0, "a") === "a" ? "PASS" : "FAIL")
+console.log("Test 8: ", arrayList.set(1, "b") === "b" ? "PASS" : "FAIL")
+console.log("Test 9: ", arrayList.set(2, "c") === "c" ? "PASS" : "FAIL")
+console.log("Test 10: ", arrayList.set(3, "d") === "d" ? "PASS" : "FAIL")
+console.log("Test 11: ", arrayList.set(4, "e") === "e" ? "PASS" : "FAIL")
+console.log("Test 12: ", JSON.stringify(arrayList.getCopyOfItems()) === JSON.stringify(["a","b","c","d","e"]) ? "PASS" : "FAIL")
 console.log("========== TESTS FOR size and capacity ==========")
-console.log("Should return '5': ", arrayList.size())
-console.log("Should return '5': ", arrayList.capacity())
+console.log("Test 13: ", arrayList.size() === 5 ? "PASS" : "FAIL")
+console.log("Test 14: ", arrayList.capacity() === 5 ? "PASS" : "FAIL")
 arrayList.append("F")
-console.log("Should return '6': ", arrayList.size())
-console.log("Should return '10': ", arrayList.capacity())
+console.log("Test 15: ", arrayList.size() === 6 ? "PASS" : "FAIL")
+console.log("Test 16: ", arrayList.capacity() === 10 ? "PASS" : "FAIL")
