@@ -20,6 +20,7 @@ This project implements common sorting algorithms, data structures, and search a
 ### Core Data Structures
 - [x] Array List
 - [x] Binary Search Tree
+- [x] Doubly Linked List
 - [x] Graph
 - [x] Hash Table
 - [x] Linked List
