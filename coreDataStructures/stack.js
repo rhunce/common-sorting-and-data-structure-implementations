@@ -1,9 +1,11 @@
+import DoublyLinkedList from "./DoublyLinkedList"
+
 class Stack {
     #stack
     constructor() {
         // can use a doubly linked list here (that includes a pointer to tail)
         // for more efficient memory allocation
-        this.#stack = []
+        this.#stack = new DoublyLinkedList()
     }
 
     // O(1) time | O(1) space
@@ -39,12 +41,11 @@ class Stack {
     }
 
     // O(1) time | O(1) space
-    printStack() {
+    getStackCopy() {
         if (this.isEmpty()) {
-            console.log(Stack.EMPTY_STACK)
-            return
+            return Stack.EMPTY_STACK
         }
-        console.log(this.#stack)
+        return this.#stack.slice()
     }
 }
 Stack.EMPTY_STACK = Symbol("Stack is empty")
@@ -52,24 +53,22 @@ Stack.EMPTY_STACK = Symbol("Stack is empty")
 // TEST CASES
 console.log("========== TESTS FOR Stack ==========")
 const stack = new Stack()
-console.log("Should return true: ", stack.isEmpty())
-console.log("Should return 1: ", stack.push(1))
-console.log("Should return 2: ", stack.push(2))
-console.log("Should return 3: ", stack.push(3))
-console.log("Should print [ 1, 2, 3 ]")
-stack.printStack()
-console.log("Should return 3: ", stack.size())
-console.log("Should return 3: ", stack.peek())
-console.log("Should return 3: ", stack.pop())
-console.log("Should return 2: ", stack.size())
-console.log("Should return 2: ", stack.peek())
-console.log("Should return 2: ", stack.pop())
-console.log("Should return 1: ", stack.size())
-console.log("Should return 1: ", stack.peek())
-console.log("Should return false: ", stack.isEmpty())
-console.log("Should return 1: ", stack.pop())
-console.log("Should return true: ", stack.isEmpty())
-console.log("Should return 0: ", stack.size())
-console.log("Should return Stack is empty: ", stack.peek())
-console.log("Should print Stack is empty")
-stack.printStack()
+console.log("Test 1: ", stack.isEmpty() === true ? "PASS" : "FAIL")
+console.log("Test 2: ", stack.push(1) === 1 ? "PASS" : "FAIL")
+console.log("Test 3: ", stack.push(2) === 2 ? "PASS" : "FAIL")
+console.log("Test 4: ", stack.push(3) === 3 ? "PASS" : "FAIL")
+console.log("Test 5: ", JSON.stringify(stack.getStackCopy()) === JSON.stringify([1,2,3]) ? "PASS" : "FAIL")
+console.log("Test 6: ", stack.size() === 3 ? "PASS" : "FAIL")
+console.log("Test 7: ", stack.peek() === 3 ? "PASS" : "FAIL")
+console.log("Test 8: ", stack.pop() === 3 ? "PASS" : "FAIL")
+console.log("Test 9: ", stack.size() === 2 ? "PASS" : "FAIL")
+console.log("Test 10: ", stack.peek() === 2 ? "PASS" : "FAIL")
+console.log("Test 11: ", stack.pop() === 2 ? "PASS" : "FAIL")
+console.log("Test 12: ", stack.size() === 1 ? "PASS" : "FAIL")
+console.log("Test 13: ", stack.peek() === 1 ? "PASS" : "FAIL")
+console.log("Test 14: ", stack.isEmpty() === false ? "PASS" : "FAIL")
+console.log("Test 15: ", stack.pop() === 1 ? "PASS" : "FAIL")
+console.log("Test 16: ", stack.isEmpty() === true ? "PASS" : "FAIL")
+console.log("Test 17: ", stack.size() === 0 ? "PASS" : "FAIL")
+console.log("Test 18: ", stack.peek() === Stack.EMPTY_STACK ? "PASS" : "FAIL")
+console.log("Test 19: ", stack.getStackCopy() === Stack.EMPTY_STACK ? "PASS" : "FAIL")
