@@ -14,6 +14,8 @@ class DoublyLinkedList {
     }
 
     // Creates a Doubly Linked List from array of values
+    // O(n) time | O(n) space
+    // n = length of values array
     static createFromValues(values) {
         const dLL = new DoublyLinkedList()
         for (const value of values) {
@@ -22,14 +24,18 @@ class DoublyLinkedList {
         return dLL
     }
 
+    // O(1) time | O(1) space
     insertAtHead(value) {
         return this.insertAtPosition(value, 1)
     }
 
+    // O(1) time | O(1) space
     insertAtTail(value) {
         return this.insertAtPosition(value, this._positionAfterTail())
     }
 
+    // O(n) time | O(1) space
+    // n = length of values array
     insertAtPosition(value, position) {
         if (!this._positionValid(position)) return null
         const nodeToInsert = new Node(value)
@@ -64,22 +70,27 @@ class DoublyLinkedList {
         return nodeToInsert
     }
 
+    // O(1) time | O(1) space
     updateHead(newValue) {
         this.head.value = newValue
         return this.head
     }
 
+    // O(1) time | O(1) space
     updateTail(newValue) {
         this.tail.value = newValue
         return this.tail
     }
 
+    // O(n) time | O(1) space
+    // n = length of values array
     updateValueAtPosition(newValue, position) {
         const nodeToUpdate = this._getNodeAtPosition(position)
         nodeToUpdate.value = newValue
         return nodeToUpdate
     }
 
+    // O(1) time | O(1) space
     removeHead() {
         if (!this.head) return null
         this.head = this.head.next
@@ -88,6 +99,7 @@ class DoublyLinkedList {
         return this.head
     }
 
+    // O(1) time | O(1) space
     removeTail() {
         if (!this.tail) return null
         this.tail = this.tail.prev
@@ -96,11 +108,13 @@ class DoublyLinkedList {
         return this.tail
     }
 
+    // O(n) time | O(1) space
+    // n = length of values array
     removeNodeAtPosition(position) {
-        const nodeToRemove = this._getNodeAtPosition(position)
-        if (!nodeToRemove) return null
+        if (!this._positionValid(position, true)) return null
         if (position === 1) return this.removeHead()
         if (position === this.size) return this.removeTail()
+        const nodeToRemove = this._getNodeAtPosition(position)
         nodeToRemove.prev.next = nodeToRemove.next
         nodeToRemove.next.prev = nodeToRemove.prev
         nodeToRemove.prev = null
@@ -109,6 +123,8 @@ class DoublyLinkedList {
         return this.head
     }
 
+    // O(n) time | O(n) space
+    // n = length of values array
     getDoublyLinkedListValues() {
         if (!this.head) return null
         const values = []
@@ -120,6 +136,7 @@ class DoublyLinkedList {
         return values
     }
 
+    // O(1) time | O(1) space
     _spliceNewNodeInAtTargetNode(nodeToInsert, targetNode = null) {
         // Inserting new head
         if (targetNode === this.head) {
@@ -148,10 +165,13 @@ class DoublyLinkedList {
         return 
     }
 
+    // O(1) time | O(1) space
     _positionAfterTail() {
         return this.size + 1
     }
 
+    // O(n) time | O(1) space
+    // n = length of values array
     _getNodeAtPosition(position) {
         if (!this._positionValid(position)) return null
         let currentNode = this.head
@@ -163,9 +183,10 @@ class DoublyLinkedList {
         return currentNode
     }
 
-    _positionValid(position) {
+    // O(1) time | O(1) space
+    _positionValid(position, removal = false) {
         const positionIsInt = parseInt(position) === position
-        if (!positionIsInt || position < 1 || position - this.size > 1) return false
+        if (!positionIsInt || position < 1 || position - this.size > (removal ? 0 : 1)) return false
         return true
     }
 }
