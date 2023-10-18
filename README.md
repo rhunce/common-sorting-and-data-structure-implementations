@@ -32,7 +32,8 @@ This project implements common sorting algorithms, data structures, and search a
 - [x] Trie
 
 ### Other Advanced Data Structures
-- TBD
+- [ ] AVL Tree
+- [ ] Red-Black Tree
 
 ## License
 
