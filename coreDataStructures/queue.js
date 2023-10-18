@@ -63,7 +63,7 @@ class Queue {
 Queue.EMPTY_QUEUE = Symbol("Queue is empty")
 
 // TEST CASES
-function runStackTests() {
+function runQueueTests() {
     console.log("========== TESTS FOR Queue ==========")
     const queue = new Queue()
     console.log("Test 1: ", queue.isEmpty() === true ? "PASS" : "FAIL")
@@ -90,4 +90,4 @@ function runStackTests() {
     console.log("Test 22: ", queue.peekFrontOfQueue() === Queue.EMPTY_QUEUE ? "PASS" : "FAIL")
     console.log("Test 23: ", queue.getQueueCopy() === Queue.EMPTY_QUEUE ? "PASS" : "FAIL")
 }
-runStackTests()
+// runQueueTests()

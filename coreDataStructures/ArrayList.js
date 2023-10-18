@@ -95,4 +95,4 @@ function runArrayListTests() {
     console.log("Test 15: ", arrayList.size() === 6 ? "PASS" : "FAIL")
     console.log("Test 16: ", arrayList.capacity() === 10 ? "PASS" : "FAIL")
 }
-runArrayListTests()
+// runArrayListTests()
