@@ -65,40 +65,9 @@ class DoublyLinkedList {
         return nodeToInsert
     }
 
-    _spliceNewNodeInAtTargetNode(nodeToInsert, targetNode = null) {
-        // Inserting new head
-        if (targetNode === this.head) {
-            targetNode.prev = nodeToInsert
-            nodeToInsert.next = targetNode
-            this.head = nodeToInsert
-            this.size++
-            return
-        }
-
-        // Inserting new tail 
-        if (!targetNode) {
-            this.tail.next = nodeToInsert
-            nodeToInsert.prev = this.tail
-            this.tail = nodeToInsert
-            this.size++
-            return
-        }
-
-        // Inserting in the middle somewhere
-        targetNode.prev.next = nodeToInsert
-        nodeToInsert.prev = targetNode.prev
-        targetNode.prev = nodeToInsert
-        nodeToInsert.next = targetNode
-        this.size++
-        return 
-    }
-
-    _positionAfterTail() {
-        return this.size + 1
-    }
-
     updateHead(newValue) {
-        // ...
+        this.head.value = newValue
+        return this.head
     }
 
     updateTail(newValue) {
@@ -132,6 +101,37 @@ class DoublyLinkedList {
         return values
     }
 
+    _spliceNewNodeInAtTargetNode(nodeToInsert, targetNode = null) {
+        // Inserting new head
+        if (targetNode === this.head) {
+            targetNode.prev = nodeToInsert
+            nodeToInsert.next = targetNode
+            this.head = nodeToInsert
+            this.size++
+            return
+        }
+
+        // Inserting new tail 
+        if (!targetNode) {
+            this.tail.next = nodeToInsert
+            nodeToInsert.prev = this.tail
+            this.tail = nodeToInsert
+            this.size++
+            return
+        }
+
+        // Inserting in the middle somewhere
+        targetNode.prev.next = nodeToInsert
+        nodeToInsert.prev = targetNode.prev
+        targetNode.prev = nodeToInsert
+        nodeToInsert.next = targetNode
+        this.size++
+        return 
+    }
+
+    _positionAfterTail() {
+        return this.size + 1
+    }
 }
 
 // TEST CASES
@@ -185,3 +185,6 @@ console.log("Test 28: ", dLL3.head.next.next.next.next.prev.value === 4 ? "PASS"
 console.log("Test 29: ", dLL3.head.next.next.next.next.prev.prev.value === 3 ? "PASS" : "FAIL")
 console.log("Test 30: ", dLL3.head.next.next.next.next.prev.prev.prev.value === 2 ? "PASS" : "FAIL")
 console.log("Test 31: ", dLL3.head.next.next.next.next.prev.prev.prev.prev.value === 1 ? "PASS" : "FAIL")
+console.log("========== TESTS FOR updateHead ==========")
+dLL3.updateHead(100)
+console.log("Test 32: ", dLL3.head.value === 100 ? "PASS" : "FAIL")
