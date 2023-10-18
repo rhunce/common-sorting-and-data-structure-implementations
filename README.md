@@ -29,7 +29,7 @@ This project implements common sorting algorithms, data structures, and search a
 - [x] Queue
 - [x] Stack
 - [x] Tree
-- [x] Trie
+- [ ] Trie
 
 ### Other Advanced Data Structures
 - [ ] AVL Tree
