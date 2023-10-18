@@ -19,20 +19,16 @@ class DoublyLinkedList {
     }
 
     insertAtHead(value) {
-        const node = new Node(value)
-        this.insertAtPosition(node, 1)
-        return node
+        return this.insertAtPosition(value, 1)
     }
 
     insertAtTail(value) {
-        const node = new Node(value)
-        this.insertAtPosition(node, this.size + 1)
-        return node
+        return this.insertAtPosition(value, this._positionAfterTail())
     }
 
-
     insertAtPosition(value, position) {
-        if (position - this.size > 0) return null
+        position = parseInt(position)
+        if (position < 1 || position - this.size > 1) return null
         const nodeToInsert = new Node(value)
 
         // Empty Doubly Linked List
@@ -50,7 +46,7 @@ class DoublyLinkedList {
         }
 
         // Inserting at tail
-        if (position === this.size + 1) {
+        if (position === this._positionAfterTail()) {
             this._spliceNewNodeInAtTargetNode(nodeToInsert)
             return nodeToInsert
         }
@@ -93,6 +89,10 @@ class DoublyLinkedList {
         return 
     }
 
+    _positionAfterTail() {
+        return this.size + 1
+    }
+
     updateHead(newValue) {
         // ...
     }
@@ -131,8 +131,40 @@ class DoublyLinkedList {
 }
 
 // TEST CASES
-const dLL = new DoublyLinkedList()
 console.log("========== TESTS FOR insertAtHead ==========")
-// ...start inserting at head and testing using getDoublyLinkedListValues method
+const dLL1 = new DoublyLinkedList()
+dLL1.insertAtHead(1)
+console.log("Test 1: ", dLL1.size === 1 ? "PASS" : "FAIL")
+dLL1.insertAtHead(2)
+console.log("Test 2: ", dLL1.size === 2 ? "PASS" : "FAIL")
+dLL1.insertAtHead(3)
+console.log("Test 3: ", dLL1.size === 3 ? "PASS" : "FAIL")
+console.log("Test 4: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([3,2,1]) ? "PASS" : "FAIL")
+console.log("Test 5: ", dLL1.head.value === 3 ? "PASS" : "FAIL")
+console.log("Test 6: ", dLL1.tail.value === 1 ? "PASS" : "FAIL")
 console.log("========== TESTS FOR insertAtTail ==========")
+const dLL2 = new DoublyLinkedList()
+dLL2.insertAtTail(1)
+console.log("Test 7: ", dLL2.size === 1 ? "PASS" : "FAIL")
+dLL2.insertAtTail(2)
+console.log("Test 8: ", dLL2.size === 2 ? "PASS" : "FAIL")
+dLL2.insertAtTail(3)
+console.log("Test 9: ", dLL2.size === 3 ? "PASS" : "FAIL")
+console.log("Test 10: ", JSON.stringify(dLL2.getDoublyLinkedListValues()) === JSON.stringify([1,2,3]) ? "PASS" : "FAIL")
+console.log("Test 11: ", dLL2.head.value === 1 ? "PASS" : "FAIL")
+console.log("Test 12: ", dLL2.tail.value === 3 ? "PASS" : "FAIL")
 console.log("========== TESTS FOR insertAtPosition ==========")
+dLL1.insertAtPosition(4, 1)
+console.log("Test 13: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([4,3,2,1]) ? "PASS" : "FAIL")
+dLL1.insertAtPosition(3.5, 2)
+console.log("Test 14: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([4,3.5,3,2,1]) ? "PASS" : "FAIL")
+dLL1.insertAtPosition(2.5, 4)
+console.log("Test 15: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([4,3.5,3,2.5,2,1]) ? "PASS" : "FAIL")
+dLL1.insertAtPosition(1.5, dLL1.size)
+console.log("Test 16: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([4,3.5,3,2.5,2,1.5,1]) ? "PASS" : "FAIL")
+dLL1.insertAtPosition(5, 1)
+console.log("Test 17: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([5,4,3.5,3,2.5,2,1.5,1]) ? "PASS" : "FAIL")
+dLL1.insertAtPosition(0, dLL1.size + 1)
+console.log("Test 18: ", JSON.stringify(dLL1.getDoublyLinkedListValues()) === JSON.stringify([5,4,3.5,3,2.5,2,1.5,1,0]) ? "PASS" : "FAIL")
+console.log("Test 19: ", dLL1.insertAtPosition(-1, 0) === null ? "PASS" : "FAIL")
+console.log("Test 20: ", dLL1.insertAtPosition(-1, dLL1.size + 2) === null ? "PASS" : "FAIL")
