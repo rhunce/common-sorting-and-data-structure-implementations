@@ -286,4 +286,4 @@ function runDoublyLinkedListTests() {
     console.log("Test 49: ", dLL4.removeNodeAtPosition(0) === null ? "PASS" : "FAIL")
     console.log("Test 50: ", dLL4.removeNodeAtPosition(dLL4.size + 1) === null ? "PASS" : "FAIL")
 }
-runDoublyLinkedListTests()
+// runDoublyLinkedListTests()

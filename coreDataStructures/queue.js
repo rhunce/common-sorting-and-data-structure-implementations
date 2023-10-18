@@ -53,41 +53,41 @@ class Queue {
     }
 
     // O(1) time | O(1) space
-    printQueue() {
+    getQueueCopy() {
         if (this.isEmpty()) {
-            console.log(Queue.EMPTY_QUEUE)
-            return
+            return Queue.EMPTY_QUEUE
         }
-        console.log(this.#queue)
+        return JSON.stringify(this.#queue)
     }
 }
 Queue.EMPTY_QUEUE = Symbol("Queue is empty")
 
 // TEST CASES
-console.log("========== TESTS FOR Queue ==========")
-const queue = new Queue()
-console.log("Should return true: ", queue.isEmpty())
-console.log("Should return 1: ", queue.enqueue(1))
-console.log("Should return 2: ", queue.enqueue(2))
-console.log("Should return 3: ", queue.enqueue(3))
-console.log("Should print { '0': 1, '1': 2, '2': 3 }")
-queue.printQueue()
-console.log("Should return 3: ", queue.size())
-console.log("Should return 3: ", queue.peekBackOfQueue())
-console.log("Should return 1: ", queue.peekFrontOfQueue())
-console.log("Should return 1: ", queue.dequeue())
-console.log("Should return 2: ", queue.size())
-console.log("Should return 3: ", queue.peekBackOfQueue())
-console.log("Should return 2: ", queue.peekFrontOfQueue())
-console.log("Should return 2: ", queue.dequeue())
-console.log("Should return 1: ", queue.size())
-console.log("Should return 3: ", queue.peekBackOfQueue())
-console.log("Should return 3: ", queue.peekFrontOfQueue())
-console.log("Should return false: ", queue.isEmpty())
-console.log("Should return 3: ", queue.dequeue())
-console.log("Should return true: ", queue.isEmpty())
-console.log("Should return 0: ", queue.size())
-console.log("Should return Queue is empty: ", queue.peekBackOfQueue())
-console.log("Should return Queue is empty: ", queue.peekFrontOfQueue())
-console.log("Should print Queue is empty")
-queue.printQueue()
+function runStackTests() {
+    console.log("========== TESTS FOR Queue ==========")
+    const queue = new Queue()
+    console.log("Test 1: ", queue.isEmpty() === true ? "PASS" : "FAIL")
+    console.log("Test 2: ", queue.enqueue(1) === 1 ? "PASS" : "FAIL")
+    console.log("Test 3: ", queue.enqueue(2) === 2 ? "PASS" : "FAIL")
+    console.log("Test 4: ", queue.enqueue(3) === 3 ? "PASS" : "FAIL")
+    console.log("Test 5: ", queue.getQueueCopy() === JSON.stringify({0:1,1:2,2:3}) ? "PASS" : "FAIL")
+    console.log("Test 6: ", queue.size() === 3 ? "PASS" : "FAIL")
+    console.log("Test 7: ", queue.peekBackOfQueue() === 3 ? "PASS" : "FAIL")
+    console.log("Test 8: ", queue.peekFrontOfQueue() === 1 ? "PASS" : "FAIL")
+    console.log("Test 9: ", queue.dequeue() === 1 ? "PASS" : "FAIL")
+    console.log("Test 10: ", queue.size() === 2 ? "PASS" : "FAIL")
+    console.log("Test 11: ", queue.peekBackOfQueue() === 3 ? "PASS" : "FAIL")
+    console.log("Test 12: ", queue.peekFrontOfQueue() === 2 ? "PASS" : "FAIL")
+    console.log("Test 13: ", queue.dequeue() === 2 ? "PASS" : "FAIL")
+    console.log("Test 14: ", queue.size() === 1 ? "PASS" : "FAIL")
+    console.log("Test 15: ", queue.peekBackOfQueue() === 3 ? "PASS" : "FAIL")
+    console.log("Test 16: ", queue.peekFrontOfQueue() === 3 ? "PASS" : "FAIL")
+    console.log("Test 17: ", queue.isEmpty() === false ? "PASS" : "FAIL")
+    console.log("Test 18: ", queue.dequeue() === 3 ? "PASS" : "FAIL")
+    console.log("Test 19: ", queue.isEmpty() === true ? "PASS" : "FAIL")
+    console.log("Test 20: ", queue.size() === 0 ? "PASS" : "FAIL")
+    console.log("Test 21: ", queue.peekBackOfQueue() === Queue.EMPTY_QUEUE ? "PASS" : "FAIL")
+    console.log("Test 22: ", queue.peekFrontOfQueue() === Queue.EMPTY_QUEUE ? "PASS" : "FAIL")
+    console.log("Test 23: ", queue.getQueueCopy() === Queue.EMPTY_QUEUE ? "PASS" : "FAIL")
+}
+runStackTests()
