@@ -80,16 +80,20 @@ class DoublyLinkedList {
         return nodeToUpdate
     }
 
-    //       h                 t
-    // n --- 2 --- 3 --- 4 --- 5 --- n
     removeHead() {
+        if (!this.head) return null
         this.head = this.head.next
         this.head.prev = null
+        this.size--
         return this.head
     }
 
     removeTail() {
-        // ...
+        if (!this.tail) return null
+        this.tail = this.tail.prev
+        this.tail.next = null
+        this.size--
+        return this.tail
     }
 
     removeNodeAtPosition(position) {
@@ -227,3 +231,9 @@ console.log("========== TESTS FOR removeHead ==========")
 dLL3.removeHead()
 console.log("Test 39: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([200,300,400,500]) ? "PASS" : "FAIL")
 console.log("Test 40: ", dLL3.head.value === 200 ? "PASS" : "FAIL")
+console.log("Test 41: ", dLL3.size === 4 ? "PASS" : "FAIL")
+console.log("========== TESTS FOR removeTail ==========")
+dLL3.removeTail()
+console.log("Test 42: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([200,300,400]) ? "PASS" : "FAIL")
+console.log("Test 43: ", dLL3.tail.value === 400 ? "PASS" : "FAIL")
+console.log("Test 44: ", dLL3.size === 3 ? "PASS" : "FAIL")
