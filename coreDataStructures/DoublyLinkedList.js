@@ -71,7 +71,8 @@ class DoublyLinkedList {
     }
 
     updateTail(newValue) {
-        // ...
+        this.tail.value = newValue
+        return this.tail
     }
 
     updateValueAtPosition(newValue, position) {
@@ -188,3 +189,8 @@ console.log("Test 31: ", dLL3.head.next.next.next.next.prev.prev.prev.prev.value
 console.log("========== TESTS FOR updateHead ==========")
 dLL3.updateHead(100)
 console.log("Test 32: ", dLL3.head.value === 100 ? "PASS" : "FAIL")
+console.log("Test 33: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([100,2,3,4,5]) ? "PASS" : "FAIL")
+console.log("========== TESTS FOR updateTail ==========")
+dLL3.updateTail(500)
+console.log("Test 34: ", dLL3.tail.value === 500 ? "PASS" : "FAIL")
+console.log("Test 35: ", JSON.stringify(dLL3.getDoublyLinkedListValues()) === JSON.stringify([100,2,3,4,500]) ? "PASS" : "FAIL")
