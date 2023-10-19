@@ -26,17 +26,20 @@ class DoublyLinkedList {
 
     // O(1) time | O(1) space
     insertAtHead(node) {
+        node = this._convertToNodeIfNotNode(node)
         return this.insertAtPosition(node, 1)
     }
 
     // O(1) time | O(1) space
     insertAtTail(node) {
+        node = this._convertToNodeIfNotNode(node)
         return this.insertAtPosition(node, this._positionAfterTail())
     }
 
     // O(n) time | O(1) space
     // n = length of values array
     insertAtPosition(nodeToInsert, position) {
+        nodeToInsert = this._convertToNodeIfNotNode(nodeToInsert)
         if (!this._positionValid(position)) return null
 
         // Empty Doubly Linked List
@@ -102,8 +105,9 @@ class DoublyLinkedList {
     removeTail() {
         if (!this.tail) return null
         this.tail = this.tail.prev
-        if (this.tail) this.tail.next = null
         this.size--
+        if (!this.tail) this.head = null
+        if (this.tail) this.tail.next = null
         return this.tail
     }
 
@@ -137,6 +141,7 @@ class DoublyLinkedList {
 
     // O(1) time | O(1) space
     _spliceNewNodeInAtTargetNode(nodeToInsert, targetNode = null) {
+        nodeToInsert = this._convertToNodeIfNotNode(nodeToInsert)
         // Inserting new head
         if (targetNode === this.head) {
             targetNode.prev = nodeToInsert
@@ -188,10 +193,16 @@ class DoublyLinkedList {
         if (!positionIsInt || position < 1 || position - this.size > (removal ? 0 : 1)) return false
         return true
     }
+
+    _convertToNodeIfNotNode(value) {
+        if (!(value instanceof Node)) return new Node(value)
+        return value
+    }
 }
 
 // TEST CASES
 function runDoublyLinkedListTests() {
+    console.log("========== TESTS FOR DoublyLinkedList ==========")
     console.log("========== TESTS FOR insertAtHead ==========")
     const dLL1 = new DoublyLinkedList()
     dLL1.insertAtHead(new Node(1))
@@ -283,6 +294,6 @@ function runDoublyLinkedListTests() {
     console.log("Test 49: ", dLL4.removeNodeAtPosition(0) === null ? "PASS" : "FAIL")
     console.log("Test 50: ", dLL4.removeNodeAtPosition(dLL4.size + 1) === null ? "PASS" : "FAIL")
 }
-runDoublyLinkedListTests()
+// runDoublyLinkedListTests()
 
 module.exports = DoublyLinkedList
