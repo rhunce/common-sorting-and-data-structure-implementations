@@ -1,3 +1,6 @@
+const Stack = require("./Stack")
+const Queue = require("./Queue")
+
 class Node {
     constructor(value) {
         this.value = value
@@ -51,6 +54,7 @@ class BinarySearchTree {
     // O(log n) time | O(log n) space
     // n = number of nodes in BST
     // log n space due to call stack of getNodeAndParent method
+    // TODO: Try to reduce space complexity to O(1) if feasible
     removeValue(value) {
         const { parent, node } = this.getNodeAndParent(value)
         if (this._hasNoChildren(node)) {
@@ -116,13 +120,12 @@ class BinarySearchTree {
     // n = number of nodes in BST
     depthFirstSearchRecursive(value, node = this.root) {
         if (node.value === value) return node
-        let targetNode
         if (node.left) {
-            targetNode = this.depthFirstSearchRecursive(value, node.left)
+            const targetNode = this.depthFirstSearchRecursive(value, node.left)
             if (targetNode) return targetNode
         }
         if (node.right) {
-            targetNode = this.depthFirstSearchRecursive(value, node.right)
+            const targetNode = this.depthFirstSearchRecursive(value, node.right)
             if (targetNode) return targetNode
         }
         return null
@@ -132,9 +135,9 @@ class BinarySearchTree {
     // n = number of nodes in BST
     depthFirstSearchIterative(value) {
         if (!this.root) return null
-        // TODO: Use an actual stack here
-        const stack = [this.root]
-        while (stack.length) {
+        const stack = new Stack()
+        stack.push(this.root)
+        while (stack.size()) {
             const currentNode = stack.pop()
             if (currentNode.value === value) return currentNode
             if (currentNode.right) stack.push(currentNode.right)
@@ -214,7 +217,8 @@ class BinarySearchTree {
 }
 
 // TEST CASES
-function runBinarySearchTests() {
+function runBinarySearchTreeTests() {
+    console.log("========== TESTS FOR BinarySearchTree ==========")
     console.log("========== TESTS FOR insertValue ==========")
     const bST = new BinarySearchTree()
     bST.insertValue(5)
@@ -325,4 +329,4 @@ function runBinarySearchTests() {
     const node10 = bST8.breadthFirstSearch(10)
     console.log("Test 50: ", node10.value === 10 ? "PASS" : "FAIL")
 }
-// runBinarySearchTests()
+// runBinarySearchTreeTests()
