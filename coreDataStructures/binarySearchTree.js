@@ -150,13 +150,13 @@ class BinarySearchTree {
     // n = number of nodes in BST
     breadthFirstSearch(value) {
         if (!this.root) return null
-        // TODO: Use an actual queue here
-        const queue = [this.root]
-        while (queue.length) {
-            const currentNode = queue.pop()
+        const queue = new Queue()
+        queue.enqueue(this.root)
+        while (queue.size()) {
+            const currentNode = queue.dequeue()
             if (currentNode.value === value) return currentNode
-            if (currentNode.left) queue.unshift(currentNode.left)
-            if (currentNode.right) queue.unshift(currentNode.right)
+            if (currentNode.left) queue.enqueue(currentNode.left)
+            if (currentNode.right) queue.enqueue(currentNode.right)
         }
         return null
     }
@@ -329,4 +329,4 @@ function runBinarySearchTreeTests() {
     const node10 = bST8.breadthFirstSearch(10)
     console.log("Test 50: ", node10.value === 10 ? "PASS" : "FAIL")
 }
-// runBinarySearchTreeTests()
+runBinarySearchTreeTests()
