@@ -77,3 +77,5 @@ function runStackTests() {
     console.log("Test 19: ", stack.getStackCopy() === Stack.EMPTY_STACK ? "PASS" : "FAIL")
 }
 // runStackTests()
+
+module.exports = Stack

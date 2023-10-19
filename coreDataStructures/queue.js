@@ -91,3 +91,5 @@ function runQueueTests() {
     console.log("Test 23: ", queue.getQueueCopy() === Queue.EMPTY_QUEUE ? "PASS" : "FAIL")
 }
 // runQueueTests()
+
+module.exports = Queue
