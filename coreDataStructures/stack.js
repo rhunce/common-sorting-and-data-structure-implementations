@@ -94,6 +94,6 @@ function runStackTests() {
     console.log("Test 18: ", stack.peek() === null ? "PASS" : "FAIL")
     console.log("Test 19: ", stack.getStackCopy().length === 0 ? "PASS" : "FAIL")
 }
-runStackTests()
+// runStackTests()
 
 module.exports = Stack
