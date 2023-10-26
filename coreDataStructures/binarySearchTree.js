@@ -14,7 +14,7 @@ class BinarySearchTree {
         this.root = null
     }
 
-    // O(n) time | O(n) space
+    // O(n log n) time | O(n) space
     // n = number of values
     static buildBST(values) {
         const bST = new BinarySearchTree()
@@ -300,4 +300,4 @@ function runBinarySearchTreeTests() {
     const node10 = bST8.breadthFirstSearch(10)
     console.log("Test 44: ", node10.value === 10 ? "PASS" : "FAIL")
 }
-runBinarySearchTreeTests()
+// runBinarySearchTreeTests()
