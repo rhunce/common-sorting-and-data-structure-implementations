@@ -9,7 +9,7 @@ class ArrayList {
     // O(1) time, amortizing | O(1) space
     append(item) {
         if (this.size() === this.capacity()) {
-            console.log(`Current size is ${this.#count}. Resizing to ${this.#count * 2}.`)
+            console.log(`Current size is ${this.size()}. Resizing to ${this.size() * 2}.`)
             this._doubleArraySize()
         }
         this.#items[this.#count] = item
@@ -50,7 +50,7 @@ class ArrayList {
     // O(n) time | O(n) space
     // n = length of current ArrayList
     _doubleArraySize() {
-        const bigger = new Array(this.#count * 2)
+        const bigger = new Array(this.size() * 2)
         for (let i = 0; i < this.capacity(); i++) {
             bigger[i] = this.#items[i]
         }
@@ -59,7 +59,7 @@ class ArrayList {
 
     // O(1) time | O(1) space
     _returnErrorIfOutOfRange(index) {
-        if (index < 0 || index > this.#count) {
+        if (index < 0 || index >= this.capacity()) {
             return "Index out of range"
         }
     }
