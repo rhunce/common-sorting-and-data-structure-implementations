@@ -1,56 +1,74 @@
-const DoublyLinkedList = require("./DoublyLinkedList")
+class Node {
+    constructor(value) {
+        this.value = value
+        this.next = null
+    }
+}
 
 class Stack {
-    #stack
+    #top
+    #size
     constructor() {
-        // using a doubly linked list here (that includes a pointer to tail)
-        // for more efficient memory allocation
-        this.#stack = new DoublyLinkedList()
+        this.#top = null
+        this.#size = 0
     }
 
     // O(1) time | O(1) space
     push(value) {
-        this.#stack.insertAtTail(value)
-        return this.peek()
+        const node = new Node(value)
+        this.#size++
+        if (!this.#top) {
+            this.#top = node
+            return this.#top.value
+        }
+        node.next = this.#top
+        this.#top = node
+        return this.#top.value
     }
 
     // O(1) time | O(1) space
     pop() {
-        if (this.isEmpty()) {
-            return Stack.EMPTY_STACK
+        if (!this.#top) {
+            return null
         }
-        const currentTail = this.#stack.tail
-        this.#stack.removeTail()
-        return currentTail.value
+
+        const poppedNode = this.#top
+        this.#top = poppedNode.next
+        poppedNode.next = null
+        this.#size--
+        return poppedNode.value
     }
 
     // O(1) time | O(1) space
     peek() {
-        if (this.isEmpty()) {
-            return Stack.EMPTY_STACK
+        if (!this.#top) {
+            return null
         }
-        return this.#stack.tail?.value
+        return this.#top.value
     }
 
     // O(1) time | O(1) space
     size() {
-        return this.#stack.size
+        return this.#size
     }
 
     // O(1) time | O(1) space
     isEmpty() {
-        return this.size() === 0
+        return this.#size === 0
     }
 
-    // O(1) time | O(1) space
+    // O(n) time | O(1) space
+    // n = number of nodes in Stack
     getStackCopy() {
-        if (this.isEmpty()) {
-            return Stack.EMPTY_STACK
+        const values = []
+        let currentNode = this.#top
+        while (currentNode) {
+            values.push(currentNode.value)
+            currentNode = currentNode.next
         }
-        return this.#stack.getDoublyLinkedListValues()
+        return values
     }
 }
-Stack.EMPTY_STACK = Symbol("Stack is empty")
 
 // TEST CASES
 function runStackTests() {
@@ -60,7 +78,7 @@ function runStackTests() {
     console.log("Test 2: ", stack.push(1) === 1 ? "PASS" : "FAIL")
     console.log("Test 3: ", stack.push(2) === 2 ? "PASS" : "FAIL")
     console.log("Test 4: ", stack.push(3) === 3 ? "PASS" : "FAIL")
-    console.log("Test 5: ", JSON.stringify(stack.getStackCopy()) === JSON.stringify([1,2,3]) ? "PASS" : "FAIL")
+    console.log("Test 5: ", JSON.stringify(stack.getStackCopy()) === JSON.stringify([3,2,1]) ? "PASS" : "FAIL")
     console.log("Test 6: ", stack.size() === 3 ? "PASS" : "FAIL")
     console.log("Test 7: ", stack.peek() === 3 ? "PASS" : "FAIL")
     console.log("Test 8: ", stack.pop() === 3 ? "PASS" : "FAIL")
@@ -73,9 +91,9 @@ function runStackTests() {
     console.log("Test 15: ", stack.pop() === 1 ? "PASS" : "FAIL")
     console.log("Test 16: ", stack.isEmpty() === true ? "PASS" : "FAIL")
     console.log("Test 17: ", stack.size() === 0 ? "PASS" : "FAIL")
-    console.log("Test 18: ", stack.peek() === Stack.EMPTY_STACK ? "PASS" : "FAIL")
-    console.log("Test 19: ", stack.getStackCopy() === Stack.EMPTY_STACK ? "PASS" : "FAIL")
+    console.log("Test 18: ", stack.peek() === null ? "PASS" : "FAIL")
+    console.log("Test 19: ", stack.getStackCopy().length === 0 ? "PASS" : "FAIL")
 }
-// runStackTests()
+runStackTests()
 
 module.exports = Stack
