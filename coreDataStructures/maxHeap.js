@@ -26,6 +26,8 @@ class MaxHeap {
         return arr.length
     }
 
+    // O(n log n) time | O(n) space
+    // TODO: There is a way to implement this in O(n) time.
     _heapify(arr, idx = 0) {
         if (arr.length < 2) return arr
         while (this._hasLeftChild(arr, idx) && this._leftChild(arr, idx) > arr[idx] || this._hasRightChild(arr, idx) && this._rightChild(arr, idx) > arr[idx]) {
