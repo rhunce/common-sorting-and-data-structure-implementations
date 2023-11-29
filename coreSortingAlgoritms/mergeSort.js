@@ -1,5 +1,5 @@
 // NOTE: This is a stable sorting algorithm, meaning the order of elements having the same value is maintained.
-// O(n log n) time | O(log n) space
+// O(n log n) time | O(n) space
 function mergeSort(numbers) {
     // DIVIDE
     if (numbers.length < 2) return numbers
@@ -30,28 +30,28 @@ function mergeSort(numbers) {
 
 // ALTERNATIVE SOLUTION
 // O(n log n) time ... O(n^2) time for shift method? | O(n) space
-function mergeSort(numbers) {
-    if (numbers.length < 2) return numbers
-    const halfIdx = Math.floor(numbers.length / 2)
-    const leftHalf = numbers.slice(0, halfIdx)
-    const rightHalf = numbers.slice(halfIdx)
+// function mergeSort(numbers) {
+//     if (numbers.length < 2) return numbers
+//     const halfIdx = Math.floor(numbers.length / 2)
+//     const leftHalf = numbers.slice(0, halfIdx)
+//     const rightHalf = numbers.slice(halfIdx)
 
-    return merge(mergeSort(leftHalf), mergeSort(rightHalf))
-}
+//     return merge(mergeSort(leftHalf), mergeSort(rightHalf))
+// }
 
-function merge(leftArr, rightArr) {
-    const sortedArray = []
+// function merge(leftArr, rightArr) {
+//     const sortedArray = []
 
-    while (leftArr.length && rightArr.length) {
-        if (leftArr[0] <= rightArr[0]) {
-            sortedArray.push(leftArr.shift())
-        } else {
-            sortedArray.push(rightArr.shift())
-        }
-    }
+//     while (leftArr.length && rightArr.length) {
+//         if (leftArr[0] <= rightArr[0]) {
+//             sortedArray.push(leftArr.shift())
+//         } else {
+//             sortedArray.push(rightArr.shift())
+//         }
+//     }
 
-    return [...sortedArray, ...leftArr, ...rightArr]
-}
+//     return [...sortedArray, ...leftArr, ...rightArr]
+// }
 
 // TEST CASES (ASSUMES ONLY NUMBERS IN ARRAY)
 console.log(mergeSort([]))
